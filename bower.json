@@ -1,0 +1,34 @@
+{
+  "name": "blog-mean-sailsjs",
+  "version": "0.0.1",
+  "homepage": "https://github.com/etiennetremel/sailsjs-angular-blog",
+  "authors": [
+    "James Cole <mail@ofjamescole.com>"
+  ],
+  "description": "Assets for a blog platform built on MEAN stack with SailsJS",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.15",
+    "jquery": "~2.1.0",
+    "moment": "~2.5.1",
+    "angular-bootstrap": "~0.10.0",
+    "showdown": "~0.3.1",
+    "angular-growl": "~0.4.0",
+    "ng-tags-input": "~1.1.1",
+    "truncate": "https://github.com/pathable/truncate.git",
+    "angular-route": "~1.2.15",
+    "angular-resource": "~1.2.15",
+    "angular-sanitize": "~1.2.15",
+    "angular-moment": "~0.6.2"
+  },
+  "resolutions": {
+    "angular": "1.2.15-build.2399+sha.ca4ddfa"
+  }
+}
