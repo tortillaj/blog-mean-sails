@@ -109,7 +109,8 @@ module.exports = {
       slug: req.param('slug'),
       body: req.param('body'),
       tags: req.param('tags'),
-      categories: req.param('categories')
+      categories: req.param('categories'),
+      status: req.param('status')
     }).done(function(error, post) {
       if (error) return res.serverError(error);
       res.send(post);
@@ -126,7 +127,8 @@ module.exports = {
       body: req.param('body'),
       slug: req.param('slug'),
       tags: req.param('tags'),
-      categories: req.param('categories')
+      categories: req.param('categories'),
+      status: req.param('status')
     }, function(error, post) {
       if (error) return res.serverError(error);
       res.send(post);

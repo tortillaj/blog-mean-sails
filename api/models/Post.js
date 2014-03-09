@@ -19,17 +19,36 @@ module.exports = {
       required: true
     },
     tags: 'array',
-    categories: 'array'
+    categories: 'array',
+    status: {
+      type: 'string',
+      in : ['published', 'draft']
+    }
+  },
+
+  beforeCreate: function(values, next) {
+
+    // Set the status if it wasn't sent
+    if (values.status === null || values.status === '') {
+      values.status = 'draft';
+    }
+
+    next();
   },
 
   afterValidation: function(values, next) {
-    var getSlug = require('speakingurl');
 
     // Generate and sanitanize slug
+    var getSlug = require('speakingurl');
     if (values.slug === null || values.slug === '') {
       values.slug = values.title;
     }
     values.slug = getSlug(values.slug);
+
+    // Set the status if it wasn't sent
+    if (values.status === null || values.status === '') {
+      values.status = 'draft';
+    }
 
     next();
   }
