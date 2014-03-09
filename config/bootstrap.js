@@ -18,8 +18,8 @@ module.exports.bootstrap = function(cb) {
       User.create({
         uid: 1,
         username: 'admin',
-        fistname: '',
-        lastname: '',
+        fistName: '',
+        lastName: '',
         password: 'admin',
         email: 'admin@example.com'
       }).done(function(error, user) {
