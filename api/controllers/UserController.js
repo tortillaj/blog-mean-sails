@@ -37,7 +37,7 @@ module.exports = {
       if (error) return res.serverError(error);
       if (!user) return res.send({
         message: "User not found"
-      });
+      }, 404);
 
       req.logIn(user, function(error) {
         if (error) res.serverError(error);
