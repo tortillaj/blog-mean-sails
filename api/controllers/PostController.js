@@ -20,8 +20,10 @@ module.exports = {
   index: function(req, res) {
 
     var page = req.param('page') || 1;
-    var postsPerPage = 10;
-    var options = {};
+    var postsPerPage = req.param('postsPerPage') || 10;
+    var options = {
+      status: 'published'
+    };
 
     // Add to the options object to support searching
     if (req.param('search')) {
