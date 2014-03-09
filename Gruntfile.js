@@ -50,14 +50,14 @@ module.exports = function(grunt) {
     // linked in the proper order order
 
     // Bring in the socket.io client
-    'linker/js/socket.io.js',
+    // 'linker/js/socket.io.js',
 
     // then beef it up with some convenience logic for talking to Sails.js
-    'linker/js/sails.io.js',
+    // 'linker/js/sails.io.js',
 
     // A simpler boilerplate library for getting you up and running w/ an
     // automatic listener for incoming messages from Socket.io.
-    'linker/js/app.js',
+    // 'linker/js/app.js',
 
     // *->    put other dependencies here   <-*
     'linker/bower_components/jquery/dist/jquery.js',
@@ -72,7 +72,8 @@ module.exports = function(grunt) {
     'linker/bower_components/angular-sanitize/angular-sanitize.js',
     'linker/bower_components/ng-tags-input/ng-tags-input.js',
     'linker/bower_components/showdown/src/showdown.js',
-    'linker/bower_components/truncate/jquery.truncate.js'
+    'linker/bower_components/truncate/jquery.truncate.js',
+    'linker/app/**/*.js'
   ];
 
 

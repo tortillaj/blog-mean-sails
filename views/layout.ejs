@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="Blog">
   <head>
-    <title><%- title %></title>
+    <title>Blog</title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -35,8 +35,50 @@
     <!--STYLES END-->
   </head>
 
-  <body>
-    <%- body %>
+  <body ng-cloak>
+    <div class="ui one column page grid">
+        <div class="column">
+
+          <!-- Header -->
+          <h2 class="ui huge center aligned icon header">
+            <a href="/" id="logo"><i class="circular emphasized inverted teal book outline icon"></i></a>
+            <div class="content">
+              Read Me
+              <div class="sub header">Welcome! Please find below some fantastic posts.</div>
+            </div>
+          </h2>
+
+          <!-- Main navigation -->
+          <div class="ui secondary pointing menu" ng-controller="NavCtrl">
+            <a class="item" href="/">
+              <i class="home icon"></i> Home
+            </a>
+            <a class="item" ng-show="isAuthenticated" href="/post/create">
+              <i class="file icon"></i> New Post
+            </a>
+            <div class="right menu">
+              <div class="item">
+                <div class="ui icon input">
+                  <input type="text" id="search-input" ng-model="searchQuery" placeholder="Search for...">
+                  <i class="search link icon" ng-click="search()"></i>
+                </div>
+              </div>
+              <a ng-hide="isAuthenticated" class="ui item" ng-click="open()">
+                <i class="lock icon"></i> Login</a>
+              <a class="ui item" ng-show="isAuthenticated" ng-click="logout()">
+                <i class="unlock icon"></i> Logout
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main view -->
+        <div class="ui column" ng-view></div>
+
+      </div>
+
+      <!-- Growl notification system -->
+      <div growl></div>
 
 
 
@@ -89,9 +131,6 @@
     -->
 
     <!--SCRIPTS-->
-    <script src="/linker/js/socket.io.js"></script>
-    <script src="/linker/js/sails.io.js"></script>
-    <script src="/linker/js/app.js"></script>
     <script src="/linker/bower_components/jquery/dist/jquery.js"></script>
     <script src="/linker/bower_components/moment/moment.js"></script>
     <script src="/linker/bower_components/angular/angular.js"></script>
@@ -105,6 +144,12 @@
     <script src="/linker/bower_components/ng-tags-input/ng-tags-input.js"></script>
     <script src="/linker/bower_components/showdown/src/showdown.js"></script>
     <script src="/linker/bower_components/truncate/jquery.truncate.js"></script>
+    <script src="/linker/app/app.js"></script>
+    <script src="/linker/app/controllers/NavCtrl.js"></script>
+    <script src="/linker/app/controllers/PostIndexCtrl.js"></script>
+    <script src="/linker/app/directives.js"></script>
+    <script src="/linker/app/filters.js"></script>
+    <script src="/linker/app/services.js"></script>
     <!--SCRIPTS END-->
   </body>
 </html>

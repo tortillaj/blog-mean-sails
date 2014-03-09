@@ -70,7 +70,7 @@ module.exports = {
 
 
   show: function(req, res) {
-    Post.findOneBySlug(req.param('slug')).done(function(err, post) {
+    Post.findOne(req.param('id')).done(function(err, post) {
       if (err) return res.serverError(err);
       res.send(post);
     });
