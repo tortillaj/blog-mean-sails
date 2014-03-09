@@ -82,7 +82,7 @@ module.exports = {
       if (err) return res.serverError(error);
       return res.send({
         posts: posts,
-        total: posts.length,
+        totalPosts: posts.length,
         tag: tag
       });
     });
@@ -96,7 +96,7 @@ module.exports = {
       if (err) return res.serverError(error);
       return res.send({
         posts: posts,
-        total: posts.length,
+        totalPosts: posts.length,
         category: category
       });
     });
