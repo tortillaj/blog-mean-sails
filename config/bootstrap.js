@@ -8,9 +8,27 @@
  * http://sailsjs.org/#documentation
  */
 
-module.exports.bootstrap = function (cb) {
+module.exports.bootstrap = function(cb) {
 
-  // It's very important to trigger this callack method when you are finished 
+  User.findOne({
+    username: 'admin'
+  }).done(function(error, user) {
+    if (!user) {
+      // Create user if not in DB
+      User.create({
+        uid: 1,
+        username: 'admin',
+        fistname: '',
+        lastname: '',
+        password: 'admin',
+        email: 'admin@example.com'
+      }).done(function(error, user) {
+        if (error) return console.dir(error);
+      });
+    }
+  });
+
+  // It's very important to trigger this callack method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();
 };
