@@ -29,7 +29,7 @@ var blog = angular.module('Blog', [
     'ngSanitize',
     'ngTagsInput',
     'angular-growl',
-    'ui.bootstrap',
+    'mm.foundation',
     'blog.filters',
     'blog.services',
     'blog.directives'

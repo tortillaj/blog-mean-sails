@@ -29,10 +29,9 @@ module.exports = function(grunt) {
    */
 
   var cssFilesToInject = [
+    'linker/bower_components/foundation/css/foundation.css',
     'linker/bower_components/angular-growl/build/angular-growl.min.css',
-    'linker/bower_components/ng-tags-input/ng-tags-input.css',
-    'linker/styles/bootstrap.css',
-    'linker/styles/bootstrap-theme.css'
+    'linker/bower_components/ng-tags-input/ng-tags-input.css'
   ];
 
 
@@ -63,8 +62,8 @@ module.exports = function(grunt) {
     'linker/bower_components/jquery/dist/jquery.js',
     'linker/bower_components/moment/moment.js',
     'linker/bower_components/angular/angular.js',
-    'linker/bower_components/angular-bootstrap/ui-bootstrap.js',
-    'linker/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+    'linker/bower_components/angular-foundation/mm-foundation.js',
+    'linker/bower_components/angular-foundation/mm-foundation-tpls.js',
     'linker/bower_components/angular-growl/build/angular-growl.js',
     'linker/bower_components/angular-moment/angular-moment.js',
     'linker/bower_components/angular-resource/angular-resource.js',
