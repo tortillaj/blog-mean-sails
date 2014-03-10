@@ -14,7 +14,7 @@
     <div class="ui segment" ng-repeat="post in datas.posts">
         <h2 class="ui header">{{ post.title }}</h2>
 
-        <div class="ui attached label top right">
+        <div class="label label-default">
             Posted {{ post.createdAt | timeago }}
         </div>
 
@@ -23,14 +23,14 @@
         <div class="ui grid two column">
             <div class="bottom aligned row">
                 <div class="column">
-                    <div class="ui label" ng-repeat="tag in post.tags"><i class="tag icon"></i> {{ tag }}</div>
-                    <div class="ui label" ng-repeat="category in post.categories"><i class="archive icon"></i> {{ category }}</div>
+                    <div class="label label-default" ng-repeat="tag in post.tags"><i class="tag icon"></i> {{ tag }}</div>
+                    <div class="label label-default" ng-repeat="category in post.categories"><i class="archive icon"></i> {{ category }}</div>
                 </div>
                 <div class="column right aligned">
                     <div ng-show="isAuthenticated" class="ui icon buttons">
-                        <a href="/post/{{ post.id }}/edit" class="ui small black button"><i class="icon pencil"></i></a>
+                        <a href="/post/{{ post.id }}/edit" class="btn btn-default"><i class="icon pencil"></i></a>
                     </div>
-                    <a href="/{{ post.slug }}/{{ post.id }}" class="ui small primary button">Read more <i class="ui primary arrow right"></i></a>
+                    <a href="/{{ post.slug }}/{{ post.id }}" class="btn btn-primary">Read more <i class="ui primary arrow right"></i></a>
                 </div>
             </div>
         </div>
