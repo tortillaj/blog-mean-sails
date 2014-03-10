@@ -1,7 +1,7 @@
 <h1 ng-show="pageTitle">{{ pageTitle }}</h1>
 
-<div class="ui segment" ng-hide="datas.posts.length">
-    <h2 class="ui header">
+<div class="row" ng-hide="datas.posts.length">
+    <h2 class="large-12 columns">
         <i class="attention icon"></i>
         <div class="content">
             Woops!
@@ -10,8 +10,8 @@
     </h2>
 </div>
 
-<div ng-show="datas.posts.length">
-    <div class="ui segment" ng-repeat="post in datas.posts">
+<div class="row" ng-show="datas.posts.length">
+    <div class="large-12 columns" ng-repeat="post in datas.posts">
         <h2 class="ui header">{{ post.title }}</h2>
 
         <div class="label label-default">
@@ -27,10 +27,10 @@
                     <div class="label label-default" ng-repeat="category in post.categories"><i class="archive icon"></i> {{ category }}</div>
                 </div>
                 <div class="column right aligned">
-                    <div ng-show="isAuthenticated" class="ui icon buttons">
-                        <a href="/post/{{ post.id }}/edit" class="btn btn-default"><i class="icon pencil"></i></a>
-                    </div>
-                    <a href="/{{ post.slug }}/{{ post.id }}" class="btn btn-primary">Read more <i class="ui primary arrow right"></i></a>
+                    <ul class="button-group">
+                        <li ng-show="isAuthenticated"><a href="/post/{{ post.id }}/edit" class="button secondary"><i class="icon pencil"></i></a></li>
+                        <li><a href="/{{ post.slug }}/{{ post.id }}" class="button">Read more <i class="ui primary arrow right"></i></a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -38,11 +38,11 @@
     </div>
 
     <div ng-show="datas.currentPage > 1" class="left floated eight wide column">
-        <a href="{{ prevLink }}" class="ui small button"><i class="icon arrow left"></i> Previous posts</a>
+        <a href="{{ prevLink }}" class="button small"><i class="icon arrow left"></i> Previous posts</a>
     </div>
 
     <div ng-show="datas.currentPage < datas.totalPosts / datas.perPage" class="floated eight wide column right aligned">
-        <a href="{{ nextLink }}" class="ui small button">Next posts <i class="icon arrow right"></i></a>
+        <a href="{{ nextLink }}" class="button small">Next posts <i class="icon arrow right"></i></a>
     </div>
 </div>
 
