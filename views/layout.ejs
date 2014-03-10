@@ -35,54 +35,7 @@
   </head>
 
   <body ng-cloak>
-    <div class="container-fluid">
-        <header>
-
-          <!-- Header -->
-          <h2 class="ui huge center aligned icon header">
-            <a href="/" id="logo"><i class="circular emphasized inverted teal book outline icon"></i></a>
-            <div class="content">
-              Read Me
-              <div class="sub header">Welcome! Please find below some fantastic posts.</div>
-            </div>
-          </h2>
-
-          <!-- Main navigation -->
-          <nav class="navbar navbar-default" ng-controller="NavCtrl">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="/">Blog</a>
-            </div>
-
-            <div class="collapse navbar-collapse">
-              <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery">
-                </div>
-                <button ng-click="search()" class="btn btn-default">Submit</button>
-              </form>
-
-              <ul class="nav navbar-nav navbar-right">
-                <li><a class="item" ng-show="isAuthenticated" href="/post/create">New Post</a></li>
-                <li><a ng-hide="isAuthenticated" class="ui item" ng-click="open()">Login</a></li>
-                <li><a class="ui item" ng-show="isAuthenticated" ng-click="logout()">Logout</a></li>
-              </ul>
-            </div>
-          </nav>
-        </header>
-
-        <!-- Main view -->
-        <main class="row" ng-view></main>
-
-      </div>
-
-      <!-- Growl notifications -->
-      <div growl></div>
+    <%- body %>
 
 
 

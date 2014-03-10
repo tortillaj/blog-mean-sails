@@ -28,7 +28,7 @@
 
 module.exports.routes = {
   // Default view
-  '/'                                   : 'views/layout.ejs',
+  '/'                                   : { view: 'home/index' },
 
   // Auth
   'get /api/users/me'                   : 'UserController.me',
