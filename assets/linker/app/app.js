@@ -40,46 +40,47 @@ var blog = angular.module('Blog', [
     '$locationProvider',
     '$routeProvider',
     'growlProvider',
-    function ($locationProvider, $routeProvider, growlProvider) {
-      $locationProvider.html5Mode(true);
-      growlProvider.globalTimeToLive(3000);
-      growlProvider.globalEnableHtml(true);
-      $routeProvider
-        .when('/', {
-          templateUrl: 'partials/post/index.html',
+    function ($locationProvider, $routeProvider, growlProvider) { 
+      $locationProvider.html5Mode(true);     
+
+      $routeProvider.when('/', {
+          templateUrl: '/partials/post/index.html',
           controller: 'PostIndexCtrl',
           resolve: resolve
         })
         .when('/page/:page', {
-          templateUrl: 'partials/post/index.html',
+          templateUrl: '/partials/post/index.html',
           controller: 'PostIndexCtrl',
           resolve: resolve
         })
         .when('/post/create', {
-          templateUrl: 'partials/post/form.html',
+          templateUrl: '/partials/post/form.html',
           controller: 'PostEditCtrl',
           needAuthentication: true,
           resolve: resolve
         })
         .when('/post/:id/edit', {
-          templateUrl: 'partials/post/form.html',
+          templateUrl: '/partials/post/form.html',
           controller: 'PostEditCtrl',
           needAuthentication: true,
           resolve: resolve
         })
         .when('/search/:query', {
-          templateUrl: 'partials/post/index.html',
+          templateUrl: '/partials/post/index.html',
           controller: 'PostIndexCtrl',
           resolve: resolve
         })
         .when('/:slug/:id', {
-          templateUrl: 'partials/post/show.html',
+          templateUrl: '/partials/post/show.html',
           controller: 'PostShowCtrl',
           resolve: resolve
         })
         .otherwise({
-          templateUrl: 'partials/404.html'
+          templateUrl: '/partials/404.html'
         });
+
+      growlProvider.globalTimeToLive(3000);
+      growlProvider.globalEnableHtml(true);
     }
   ]).run([
     '$rootScope',

@@ -37,7 +37,7 @@ module.exports.routes = {
 
   // Posts
   'get /api/posts'                      : 'PostController.index',
-  'get /api/posts/:slug'                : 'PostController.show',
+  'get /api/posts/:id'                  : 'PostController.show',
   'post /api/posts'                     : 'PostController.create',
   'put /api/posts/:id'                  : 'PostController.update',
   'delete /api/posts/:id'               : 'PostController.destroy',
