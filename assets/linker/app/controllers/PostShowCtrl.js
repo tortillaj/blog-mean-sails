@@ -6,7 +6,7 @@ blog.controller('PostShowCtrl', ['$scope', '$routeParams', '$location', 'growl',
   $scope.post = Post.show({id: $routeParams.id});
 
   $scope.destroyPost = function () {
-    Post.destroy($scope.post.id).then(function () {
+    Post.destroy({ id: $scope.post.id }).then(function () {
       growl.addSuccessMessage('Post has been successfully deleted.');
       $location.path('/');
     }, function (err) {

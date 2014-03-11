@@ -81,4 +81,45 @@ angular.module('blog.services', ['ngResource'])
         return defer.promise;
       }
     };
+  }])
+
+  // a service for uploading files
+  .factory('$fileUpload', ['$http', '$q', 'Globals', function ($http, $q, Globals) {
+    var acceptedTypes = ['image/png', 'image/jpeg', 'image/gif'];
+    var formatData = function (file) {
+      var formData = new FormData();
+      formData.append('file', file);
+      return formData;
+    };
+
+    return {
+      upload: function (file) {
+        var defer = $q.defer();
+
+        if (acceptedTypes.indexOf(file.type) > 0) {
+          $http({
+            method: 'POST',
+            url: Globals.apiPrefix + '/upload',
+            data: formatData(file),
+            headers: {
+              'Content-Type': undefined
+            },
+            transformRequest: angular.identity
+          })
+            .success(function (data, status, headers, config) {
+              if (status === '400') {
+                defer.reject('Something went wrong, please check if AWS is correctly defined.');
+              } else {
+                defer.resolve(data.url);
+              }
+            })
+            .error(function (data, status, headers, config) {
+              defer.reject(status);
+            });
+        } else {
+          defer.reject('Wrong file type');
+        }
+        return defer.promise;
+      }
+    }
   }]);

@@ -41,7 +41,7 @@ var blog = angular.module('Blog', [
     '$routeProvider',
     'growlProvider',
     function ($locationProvider, $routeProvider, growlProvider) { 
-      $locationProvider.html5Mode(true);     
+      $locationProvider.html5Mode(false).hashPrefix('!');
 
       $routeProvider.when('/', {
           templateUrl: '/partials/post/index.html',
@@ -54,13 +54,13 @@ var blog = angular.module('Blog', [
           resolve: resolve
         })
         .when('/post/create', {
-          templateUrl: '/partials/post/form.html',
+          templateUrl: '/partials/post/edit.html',
           controller: 'PostEditCtrl',
           needAuthentication: true,
           resolve: resolve
         })
         .when('/post/:id/edit', {
-          templateUrl: '/partials/post/form.html',
+          templateUrl: '/partials/post/edit.html',
           controller: 'PostEditCtrl',
           needAuthentication: true,
           resolve: resolve
