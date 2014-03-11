@@ -26,11 +26,11 @@ module.exports = {
     };
 
     // Add to the options object to support searching
-    if (req.param('search')) {
+    if (req.param('query')) {
       options = {
         or: []
       };
-      var search = req.param('search').split(' ');
+      var search = req.param('query').split(' ');
       for (var q = 0; q < search.length; q++) {
         options.or.push({
           title: {
@@ -106,9 +106,17 @@ module.exports = {
 
 
   create: function(req, res) {
+    var getSlug = require('speakingurl');
+    var slug = getSlug(req.param('title'));
+
+    Post.findBySlug(slug).done(function(error, post) {
+      if (error) return res.serverError(error);
+      if (!post) return res.send({'type': 'validationError', 'errorMessage': 'Slug taken', 'post': post});
+    });
+
     Post.create({
       title: req.param('title'),
-      slug: req.param('slug'),
+      slug: req.param('slug') || slug,
       body: req.param('body'),
       tags: req.param('tags'),
       categories: req.param('categories'),
