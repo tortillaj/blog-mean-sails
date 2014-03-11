@@ -13,7 +13,7 @@ blog.controller('NavCtrl', ['$scope', '$rootScope', '$location', 'growl', 'Auth'
 
   $scope.open = function () {
     var modalInstance = $modal.open({
-      templateUrl: 'partials/modal/login.html',
+      templateUrl: '/partials/modal/login.html',
       controller: LoginModalInstanceCtrl
     });
   };
