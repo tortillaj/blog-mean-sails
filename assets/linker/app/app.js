@@ -103,7 +103,7 @@ var blog = angular.module('Blog', [
 
       // Customized Angular Tags Input template to fit Semantic UI
       $templateCache.put('ngTagsInput/tags-input.html',
-        '<div class="ngTagsInput" tabindex="-1" ng-class="options.customClass" ti-transclude-append=""><div class="tags" ng-class="{focused: hasFocus}"><ul class="tag-list"><li class="ui label" ng-repeat="tag in tags" ng-class="getCssClass($index)"><span>{{tag}}</span> <i class="delete icon" ng-click="remove($index)"></i></li></ul><input class="tag-input" placeholder="{{options.placeholder}}" maxlength="{{options.maxLength}}" tabindex="{{options.tabindex}}" ng-model="newTag" ng-change="newTagChange()" ti-autosize=""></div></div>'
+        '<div class="ngTagsInput" tabindex="-1" ng-class="options.customClass" ti-transclude-append=""><div class="tags" ng-class="{focused: hasFocus}"><ul class="tag-list"><li class="ui label tag-item" ng-repeat="tag in tags" ng-class="getCssClass($index)"><span>{{tag}}</span> <i class="delete icon" ng-click="remove($index)"></i></li></ul><input class="tag-input" placeholder="{{options.placeholder}}" maxlength="{{options.maxLength}}" tabindex="{{options.tabindex}}" ng-model="newTag" ng-change="newTagChange()" ti-autosize=""></div></div>'
       );
 
       $templateCache.put('ngTagsInput/auto-complete.html',
