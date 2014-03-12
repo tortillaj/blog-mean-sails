@@ -3,46 +3,52 @@
 <div class="row" ng-hide="datas.posts.length">
     <h2 class="large-12 columns">
         <i class="attention icon"></i>
+
         <div class="content">
             Woops!
-            <div class="sub header">No posts found.</div>
+            <small class="subheader">No posts found.</div>
         </div>
     </h2>
 </div>
 
 <div class="row" ng-show="datas.posts.length">
-    <div class="large-12 columns" ng-repeat="post in datas.posts">
-        <h2 class="ui header">{{ post.title }}</h2>
 
-        <div class="label label-default">
-            Posted {{ post.createdAt | timeago }}
-        </div>
+    <article class="large-12 columns" ng-repeat="post in datas.posts">
+
+        <header>
+            <h2 class="ui header">{{ post.title }} <small>Posted <time>{{ post.createdAt | timeago }}</time></small></h2>
+        </header>
 
         <markdown ng-model="post.body" truncate="500"></markdown>
 
-        <div class="ui grid two column">
-            <div class="bottom aligned row">
-                <div class="column">
-                    <div class="label label-default" ng-repeat="tag in post.tags"><i class="tag icon"></i> {{ tag }}</div>
-                    <div class="label label-default" ng-repeat="category in post.categories"><i class="archive icon"></i> {{ category }}</div>
-                </div>
-                <div class="column right aligned">
-                    <ul class="button-group">
-                        <li ng-show="isAuthenticated"><a href="/#!/post/{{ post.id }}/edit" class="button secondary"><i class="icon pencil"></i></a></li>
-                        <li><a href="/#!/{{ post.slug }}/{{ post.id }}" class="button">Read more <i class="ui primary arrow right"></i></a></li>
-                    </ul>
-                </div>
+        <footer class="row">
+            <div class="large-6 small-12 columns">
+                <ul class="button-group" ng-show="post.tags.length">
+                    <li class="button tiny secondary" ng-repeat="tag in post.tags"><i class="tag icon"></i> {{ tag }}</li>
+                </ul>
+                <ul class="button-group" ng-show="post.categories.length">
+                    <li class="button tiny secondary" ng-repeat="category in post.categories"><i class="archive icon"></i> {{ category }}</li>
+                </ul>
             </div>
+            <div class="large-6 small-12 columns">
+                <ul class="button-group">
+                    <li ng-show="isAuthenticated"><a href="/#!/post/{{ post.id }}/edit" class="button small secondary">Edit <i class="icon pencil"></i></a></li>
+                    <li><a href="/#!/{{ post.slug }}/{{ post.id }}" class="button small">Read more <i class="ui primary arrow right"></i></a></li>
+                </ul>
+            </div>
+        </footer>
+
+    </article>
+
+    <section class="row pagination">
+        <div ng-show="datas.currentPage > 1" class="large-6 columns">
+            <a href="{{ prevLink }}" class="button small"><i class="icon arrow left"></i> Previous posts</a>
         </div>
 
-    </div>
+        <div ng-show="datas.currentPage < datas.totalPosts / datas.perPage" class="large-6 columns">
+            <a href="{{ nextLink }}" class="button small">Next posts <i class="icon arrow right"></i></a>
+        </div>
+    </section>
 
-    <div ng-show="datas.currentPage > 1" class="left floated eight wide column">
-        <a href="{{ prevLink }}" class="button small"><i class="icon arrow left"></i> Previous posts</a>
-    </div>
-
-    <div ng-show="datas.currentPage < datas.totalPosts / datas.perPage" class="floated eight wide column right aligned">
-        <a href="{{ nextLink }}" class="button small">Next posts <i class="icon arrow right"></i></a>
-    </div>
 </div>
 
