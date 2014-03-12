@@ -114,15 +114,18 @@ module.exports = {
       if (!post) return res.send({'type': 'validationError', 'errorMessage': 'Slug taken', 'post': post});
     });
 
-    Post.create({
+    var newPost = {
       title: req.param('title'),
       slug: req.param('slug') || slug,
       body: req.param('body'),
       tags: req.param('tags'),
       categories: req.param('categories'),
       status: req.param('status')
-    }).done(function(error, post) {
+    };
+
+    Post.create(newPost).done(function(error, post) {
       if (error) return res.serverError(error);
+      //Post.publishCreate(JSON.stringify(post));
       res.send(post);
     });
   },
@@ -130,17 +133,22 @@ module.exports = {
 
   update: function(req, res) {
     var id = req.param('id');
-    Post.update({
-      id: id
-    }, {
+    var updatedPost = {
       title: req.param('title'),
       body: req.param('body'),
       slug: req.param('slug'),
       tags: req.param('tags'),
       categories: req.param('categories'),
       status: req.param('status')
-    }, function(error, post) {
+    };
+
+    Post.update({
+      id: id
+    }, updatedPost, function(error, post) {
       if (error) return res.serverError(error);
+      //console.dir(post);
+      //var send = $.extend({}, post);
+      //Post.publishUpdate(id, JSON.stringify(send));
       res.send(post);
     });
   },
@@ -149,8 +157,9 @@ module.exports = {
   destroy: function(req, res) {
     Post.destroy(req.param('id')).done(function(error) {
       if (error) return res.serverError(error);
+      Post.publishDestroy(req.param('id'));
       res.send({});
     });
-  },
+  }
 
 };

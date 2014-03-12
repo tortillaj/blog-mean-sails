@@ -33,7 +33,7 @@ angular.module('blog.services', ['ngResource'])
         }
       });
     }
-])
+  ])
 
 // service for authenticating
   .factory('Auth', ['$http', '$q', '$route', '$rootScope', '$location', 'Globals', function ($http, $q, $route, $rootScope, $location, Globals) {
@@ -83,7 +83,7 @@ angular.module('blog.services', ['ngResource'])
     };
   }])
 
-  // a service for uploading files
+// a service for uploading files
   .factory('$fileUpload', ['$http', '$q', 'Globals', function ($http, $q, Globals) {
     var acceptedTypes = ['image/png', 'image/jpeg', 'image/gif'];
     var formatData = function (file) {
@@ -122,4 +122,29 @@ angular.module('blog.services', ['ngResource'])
         return defer.promise;
       }
     }
-  }]);
+  }])
+
+// service for socket.io
+  .factory('socket', function ($rootScope) {
+    var socket = io.connect();
+    return {
+      on: function (eventName, callback) {
+        socket.on(eventName, function () {
+          var args = arguments;
+          $rootScope.$apply(function () {
+            callback.apply(socket, args);
+          });
+        });
+      },
+      emit: function (eventName, data, callback) {
+        socket.emit(eventName, data, function () {
+          var args = arguments;
+          $rootScope.$apply(function () {
+            if (callback) {
+              callback.apply(socket, args);
+            }
+          });
+        })
+      }
+    };
+  });
