@@ -146,10 +146,12 @@ module.exports = {
       id: id
     }, updatedPost, function(error, post) {
       if (error) return res.serverError(error);
-      //console.dir(post);
-      //var send = $.extend({}, post);
-      //Post.publishUpdate(id, JSON.stringify(send));
-      res.send(post);
+      var postObj = {};
+      for (var i = 0; i < post.length; i++) {
+        postObj[i] = post[i];
+      }
+      Post.publishUpdate(id, postObj);
+      res.send(postObj);
     });
   },
 

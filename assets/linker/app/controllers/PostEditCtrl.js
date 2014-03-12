@@ -17,17 +17,22 @@ blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl',
     };
 
     if ($routeParams.id) {
-      $scope.post.$update({ id: $routeParams.id }, function(post) {
-        growl.addSuccessMessage('Post <strong>' + post.title + '</strong> has been successfully updated.');
-        $location.path('/' + post.slug + '/' + post.id);
+      $scope.post.$update({ id: $routeParams.id }, function(response, status) {
+        data = response[0];
+        growl.addSuccessMessage('Post <strong>' + data.title + '</strong> has been successfully updated.');
+        $location.path('/' + data.slug + '/' + data.id);
       }, function(error) {
         failure(error);
       });
     } else {
-      Post.create($scope.post, function (post) {
-        growl.addSuccessMessage('Post <strong>' + post.title + '</strong> has been successfully created.');
-        $location.path('/' + post.slug + '/' + post.id);
-      }, failure);
+      $scope.post.$save(function(response) {
+        if (response.$resolved) {
+          growl.addSuccessMessage('Post <strong>' + response.title + '</strong> has been successfully created.');
+          $location.path('/' + response.slug + '/' + response.id);
+        } else {
+          failure(error);
+        }
+      });
     }
   };
 }]);
