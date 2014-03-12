@@ -6,7 +6,13 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
     $scope.prevLink = '/search?q=' + $routeParams.query + '&page=' + ($scope.datas.currentPage - 1);
     $scope.nextLink = '/search?q=' + $routeParams.query + '&page=' + ($scope.datas.currentPage + 1);
   } else {
-    $scope.datas = Post.index({page: page});
+    if ($routeParams.tag) {
+      $scope.datas = Post.tag({ tag: $routeParams.tag, page: page }, console.dir($scope.datas));
+    } else if ($routeParams.category) {
+      $scope.datas = Post.category({ category: $routeParams.category, page: page });
+    } else {
+      $scope.datas = Post.index({ page: page });
+    }
     $scope.prevLink = '/page/' + ($scope.datas.currentPage - 1);
     $scope.nextLink = '/page/' + ($scope.datas.currentPage + 1);
   }

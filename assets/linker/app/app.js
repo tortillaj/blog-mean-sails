@@ -65,6 +65,16 @@ var blog = angular.module('Blog', [
           needAuthentication: true,
           resolve: resolve
         })
+        .when('/tag/:tag', {
+          templateUrl: '/partials/post/index.html',
+          controller: 'PostIndexCtrl',
+          resolve: resolve
+        })
+        .when('/category/:category', {
+          templateUrl: '/partials/post/index.html',
+          controller: 'PostIndexCtrl',
+          resolve: resolve
+        })
         .when('/search/:query', {
           templateUrl: '/partials/post/index.html',
           controller: 'PostIndexCtrl',

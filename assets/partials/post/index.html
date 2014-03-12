@@ -6,7 +6,7 @@
 
         <div class="content">
             Woops!
-            <small class="subheader">No posts found.</div>
+            <div class="subheader">No posts found.</div>
         </div>
     </h2>
 </div>
@@ -24,10 +24,10 @@
         <footer class="row">
             <div class="large-6 small-12 columns">
                 <ul class="button-group" ng-show="post.tags.length">
-                    <li class="button tiny secondary" ng-repeat="tag in post.tags"><i class="tag icon"></i> {{ tag }}</li>
+                    <li class="button tiny secondary" ng-repeat="tag in post.tags"><a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag }}</a></li>
                 </ul>
                 <ul class="button-group" ng-show="post.categories.length">
-                    <li class="button tiny secondary" ng-repeat="category in post.categories"><i class="archive icon"></i> {{ category }}</li>
+                    <li class="button tiny secondary" ng-repeat="category in post.categories"><a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category }}</a></li>
                 </ul>
             </div>
             <div class="large-6 small-12 columns">

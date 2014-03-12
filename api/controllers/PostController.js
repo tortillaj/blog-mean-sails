@@ -43,6 +43,33 @@ module.exports = {
       }
     }
 
+    if (req.param('tag')) {
+      var tag = req.param('tag');
+
+      Post.findByTagsIn(tag).done(function(err, posts) {
+        if (err) return res.serverError(error);
+        return res.send({
+          posts: posts,
+          totalPosts: posts.length,
+          tag: tag
+        });
+      });
+
+    }
+
+    if (req.param('category')) {
+      var category = req.param('category');
+
+      Post.findByCategoriesIn(category).done(function(err, posts) {
+        if (err) return res.serverError(error);
+        return res.send({
+          posts: posts,
+          totalPosts: posts.length,
+          category: category
+        });
+      });
+    }
+
     // Query the model to get the posts
     Post.find(options).done(function(error, posts) {
       if (error) return res.serverError(error);

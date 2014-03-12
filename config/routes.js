@@ -42,6 +42,10 @@ module.exports.routes = {
   'put /api/posts/:id'                  : 'PostController.update',
   'delete /api/posts/:id'               : 'PostController.destroy',
 
+  // Tags and Categories
+  'get /api/tag/:tag'                   : 'PostController.tag',
+  'get /api/category/:category'         : 'PostController.category',
+
   // Upload
   'post /api/upload'                    : 'UploadController.index'
 };

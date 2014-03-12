@@ -10,9 +10,7 @@ angular.module('blog.services', ['ngResource'])
       }, {
         'index': {
           method: 'GET',
-          params: {
-            page: 'page'
-          }
+          params: { page: 'page' }
         },
         'show': {
           method: 'GET'
@@ -30,6 +28,16 @@ angular.module('blog.services', ['ngResource'])
           method: 'GET',
           action: 'search',
           params: { query: 'search', page: 'page' }
+        },
+        'tag': {
+          method: 'GET',
+          action: 'tag',
+          params: { tag: 'tag', page: 'page' }
+        },
+        'category': {
+          method: 'GET',
+          action: 'category',
+          params: { category: 'tag', page: 'page' }
         }
       });
     }
