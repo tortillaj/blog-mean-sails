@@ -27,9 +27,7 @@ module.exports = {
 
     // Add to the options object to support searching
     if (req.param('query')) {
-      options = {
-        or: []
-      };
+      options['or'] = [];
       var search = req.param('query').split(' ');
       for (var q = 0; q < search.length; q++) {
         options.or.push({
