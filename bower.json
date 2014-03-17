@@ -27,7 +27,8 @@
     "angular-sanitize": "~1.2.15",
     "angular-moment": "~0.6.2",
     "foundation": "5.2.0",
-    "angular-foundation": "0.1.0"
+    "angular-foundation": "0.1.0",
+    "angulartics": "0.4.15"
   },
   "resolutions": {
     "angular": "1.2.15-build.2399+sha.ca4ddfa"
