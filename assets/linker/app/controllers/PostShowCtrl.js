@@ -1,8 +1,6 @@
 blog.controller('PostShowCtrl', ['$scope', '$routeParams', '$location', 'growl', 'Post', function ($scope, $routeParams, $location, growl, Post) {
 
   $scope.post = Post.show({id: $routeParams.id}, function(data) {
-    console.dir(data);
-    console.dir(Prism);
     Prism.highlightAll();
   });
 

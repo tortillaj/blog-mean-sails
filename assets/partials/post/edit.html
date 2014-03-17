@@ -1,12 +1,12 @@
-<div class="ui header">
+<div class="large-12 columns panel">
     <i class="pencil icon"></i>
     <div class="content">
-        {{ pageTitle }}
-        <div class="sub header">Write your post using Markdown.</div>
+        <h2>{{ pageTitle }}</h2>
+        <div class="subheader">Write your post using Markdown.</div>
     </div>
 </div>
 
-<form id="post-form" name="postForm" class="ui form" role="form" ng-submit="submit()">
+<form id="post-form" name="postForm" class="large-12 columns" role="form" ng-submit="submit()">
 
     <div class="field" ng-class="{ 'error' : postForm.title.$invalid && !postForm.title.$pristine }">
         <label for="input-title">Title</label>
@@ -23,25 +23,30 @@
             <option value="published">Published</option>
         </select>
     </div>
-    <div class="field" ng-class="{ 'error' : postForm.content.$invalid && !postForm.content.$pristine }">
-        <label for="post-content">Content (use <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>, preview will appear further down)</label>
-        <div class="post-content-editor" post-editor>
-            <div class="upload-button ui blue mini button floated right">
-                <i class="icon upload disk"></i>
-                <input type="file" class="upload-field" multiple />
+
+    <div class="row">
+        <div class="large-6 columns" ng-class="{ 'error' : postForm.content.$invalid && !postForm.content.$pristine }">
+            <label for="post-content">Content (use <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>, preview will appear further down)</label>
+
+            <div class="post-content-editor" post-editor>
+                <div class="upload-button ui blue mini button floated right">
+                    <i class="icon upload disk"></i>
+                    <input type="file" class="upload-field" multiple />
+                </div>
+                <div class="ui dimmer">
+                    <div class="ui loader"></div>
+                </div>
+                <textarea class="ui attached" id="post-content" name="content" ng-model="post.body" required></textarea>
             </div>
-            <div class="ui dimmer">
-                <div class="ui loader"></div>
+        </div>
+        <div class="large-6 columns">
+            <label for="post-preview">Preview</label>
+            <div class="ui segment">
+                <markdown id="post-preview" ng-model="post.body"></markdown>
             </div>
-            <textarea class="ui attached" id="post-content" name="content" ng-model="post.body" required></textarea>
         </div>
     </div>
-    <div class="field">
-        <label for="post-preview">Preview</label>
-        <div class="ui segment">
-            <markdown id="post-preview" ng-model="post.body"></markdown>
-        </div>
-    </div>
+
     <div class="field">
         <label for="input-tags">Tags</label>
         <tags-input ng-model="post.tags" id="input-tags" class="input-tags" replaceSpacesWithDashes="true"></tags-input>

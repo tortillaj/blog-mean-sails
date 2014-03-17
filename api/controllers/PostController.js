@@ -132,16 +132,16 @@ module.exports = {
 
   create: function(req, res) {
     var getSlug = require('speakingurl');
-    var slug = getSlug(req.param('title'));
+    var slug = req.param('slug') || getSlug(req.param('title'));
 
-    Post.findBySlug(slug).done(function(error, post) {
+    Post.findBySlugIn(slug).done(function(error, post) {
       if (error) return res.serverError(error);
-      if (!post) return res.send({'type': 'validationError', 'errorMessage': 'Slug taken', 'post': post});
+      if (post) return res.send({'message': 'Slug already taken! Pick a new slug for this post.'}, 400);
     });
 
     var newPost = {
       title: req.param('title'),
-      slug: req.param('slug') || slug,
+      slug: slug,
       body: req.param('body'),
       tags: req.param('tags'),
       categories: req.param('categories'),

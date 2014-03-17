@@ -13,7 +13,7 @@ blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl',
   $scope.submit = function () {
 
     var failure = function (error) {
-      growl.addErrorMessage('Something goes wrong: ' + error);
+      growl.addErrorMessage(error);
     };
 
     if ($routeParams.id) {
@@ -29,9 +29,9 @@ blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl',
         if (response.$resolved) {
           growl.addSuccessMessage('Post <strong>' + response.title + '</strong> has been successfully created.');
           $location.path('/' + response.slug + '/' + response.id);
-        } else {
-          failure(error);
         }
+      }, function(response) {
+        failure(response.data.message);
       });
     }
   };
