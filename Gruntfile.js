@@ -31,7 +31,8 @@ module.exports = function(grunt) {
   var cssFilesToInject = [
     'linker/bower_components/foundation/css/foundation.css',
     'linker/bower_components/angular-growl/build/angular-growl.min.css',
-    'linker/bower_components/ng-tags-input/ng-tags-input.css'
+    'linker/bower_components/ng-tags-input/ng-tags-input.css',
+    'linker/js/prism/themes/prism.css'
   ];
 
 
@@ -72,7 +73,10 @@ module.exports = function(grunt) {
     'linker/bower_components/ng-tags-input/ng-tags-input.js',
     'linker/bower_components/showdown/src/showdown.js',
     'linker/bower_components/truncate/jquery.truncate.js',
-    'linker/app/**/*.js'
+    'linker/js/prism/prism.js',
+    'linker/js/prism/components.js',
+    'linker/app/**/*.js',
+    'linker/js/blog.js'
   ];
 
 
