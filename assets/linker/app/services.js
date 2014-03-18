@@ -107,7 +107,7 @@ angular.module('blog.services', ['ngResource'])
         if (acceptedTypes.indexOf(file.type) > 0) {
           $http({
             method: 'POST',
-            url: Globals.apiPrefix + '/upload',
+            url: Globals.apiPrefix + '/upload/send',
             data: formatData(file),
             headers: {
               'Content-Type': undefined
@@ -118,7 +118,7 @@ angular.module('blog.services', ['ngResource'])
               if (status === '400') {
                 defer.reject('Something went wrong, please check if AWS is correctly defined.');
               } else {
-                defer.resolve(data.url);
+                defer.resolve(data.cdnUri + '/original_' + data.uploaded[0]);
               }
             })
             .error(function (data, status, headers, config) {

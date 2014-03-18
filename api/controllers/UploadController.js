@@ -47,12 +47,30 @@ module.exports = {
       if (err) {
         res.serverError(err);
       } else {
+        console.dir(data);
         // Return link to the image
         res.send({
           url: 'https://' + sails.config.aws.endPoint + '/' + sails.config.aws.bucket + '/' + req.files.file.originalFilename
         });
       }
     });
+  },
+
+  send: function(req, res) {
+    var Imager = require('imager');
+    var imagerConfig = sails.config.imager;
+    var imager = new Imager(imagerConfig, 'S3');
+
+    // add a field to support imager
+    req.files.file.type = req.files.file.headers['content-type'];
+
+    imager.upload([req.files.file], function(error, cdnUri, uploaded) {
+      if (error) res.serverError(error);
+      res.send({
+        uploaded: uploaded,
+        cdnUri: cdnUri
+      });
+    }, 'items');
   }
 
 };

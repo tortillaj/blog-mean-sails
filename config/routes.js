@@ -47,5 +47,6 @@ module.exports.routes = {
   'get /api/category/:category'         : 'PostController.category',
 
   // Upload
-  'post /api/upload'                    : 'UploadController.index'
+  'post /api/upload'                    : 'UploadController.index',
+  'post /api/upload/send'             : 'UploadController.send'
 };
