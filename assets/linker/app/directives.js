@@ -54,6 +54,9 @@ angular.module('blog.directives', [])
           }
 
           el.html(html);
+
+          // Syntax highlighting
+          Prism.highlightAll();
         });
       }
     }

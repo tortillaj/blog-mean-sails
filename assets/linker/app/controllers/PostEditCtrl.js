@@ -20,7 +20,7 @@ blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl',
       $scope.post.$update({ id: $routeParams.id }, function(response, status) {
         data = response[0];
         growl.addSuccessMessage('Post <strong>' + data.title + '</strong> has been successfully updated.');
-        $location.path('/' + data.slug + '/' + data.id);
+        $location.path('/article/' + data.slug + '/' + data.id);
       }, function(error) {
         failure(error);
       });
@@ -28,11 +28,12 @@ blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl',
       $scope.post.$save(function(response) {
         if (response.$resolved) {
           growl.addSuccessMessage('Post <strong>' + response.title + '</strong> has been successfully created.');
-          $location.path('/' + response.slug + '/' + response.id);
+          $location.path('/article/' + response.slug + '/' + response.id);
         }
       }, function(response) {
         failure(response.data.message);
       });
     }
   };
+
 }]);

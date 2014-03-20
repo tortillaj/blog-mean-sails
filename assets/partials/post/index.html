@@ -16,7 +16,7 @@
     <article class="large-12 columns" ng-repeat="post in datas.posts">
 
         <header>
-            <h2 class="ui header">{{ post.title }} <small>Posted <time>{{ post.createdAt | timeago }}</time></small></h2>
+            <h2 class="ui header"><a href="/#!/article/{{ post.slug }}/{{ post.id }}">{{ post.title }} <small>Posted <time>{{ post.createdAt | timeago }}</time></small></a></h2>
         </header>
 
         <markdown ng-model="post.body" truncate="500"></markdown>
@@ -33,7 +33,7 @@
             <div class="large-6 small-12 columns">
                 <ul class="button-group">
                     <li ng-show="isAuthenticated"><a href="/#!/post/{{ post.id }}/edit" class="button small secondary">Edit <i class="icon pencil"></i></a></li>
-                    <li><a href="/#!/{{ post.slug }}/{{ post.id }}" class="button small">Read more <i class="ui primary arrow right"></i></a></li>
+                    <li><a href="/#!/article/{{ post.slug }}/{{ post.id }}" class="button small">Read more <i class="ui primary arrow right"></i></a></li>
                 </ul>
             </div>
         </footer>

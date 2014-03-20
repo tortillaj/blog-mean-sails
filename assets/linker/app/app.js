@@ -80,7 +80,7 @@ var blog = angular.module('Blog', [
           controller: 'PostIndexCtrl',
           resolve: resolve
         })
-        .when('/:slug/:id', {
+        .when('/article/:slug/:id', {
           templateUrl: '/partials/post/show.html',
           controller: 'PostShowCtrl',
           resolve: resolve

@@ -1,8 +1,6 @@
 blog.controller('PostShowCtrl', ['$scope', '$routeParams', '$location', 'growl', 'Post', function ($scope, $routeParams, $location, growl, Post) {
 
-  $scope.post = Post.show({id: $routeParams.id}, function(data) {
-    Prism.highlightAll();
-  });
+  $scope.post = Post.show({id: $routeParams.id});
 
   $scope.destroyPost = function () {
     Post.destroy({ id: $scope.post.id }, function (data) {
@@ -13,4 +11,5 @@ blog.controller('PostShowCtrl', ['$scope', '$routeParams', '$location', 'growl',
       growl.addErrorMessage('Something goes wrong, Error type:' + err);
     });
   };
+
 }]);
