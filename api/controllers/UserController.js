@@ -24,9 +24,9 @@ module.exports = {
 
   logout: function(req, res) {
     req.logout();
-
     return res.send({
-      status: 'success'
+      status: 'success',
+      message: 'You have been logged out.'
     });
   },
 
@@ -39,6 +39,7 @@ module.exports = {
 
       req.logIn(user, function(error) {
         if (error) res.serverError(error);
+        sails.io.sockets.emit('auth:user-login', { user: user });
         return res.send(user);
       });
     })(req, res);

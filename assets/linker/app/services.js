@@ -78,7 +78,7 @@ angular.module('blog.services', ['ngResource'])
         var defer = $q.defer();
         $http({
           method: 'GET',
-          url: Globals.apiPrefix + '/users/logout'
+          url: Globals.apiPrefix + '/users/logout',
         })
           .success(function (data, status, headers, config) {
             defer.resolve(data, status);

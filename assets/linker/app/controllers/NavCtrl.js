@@ -7,7 +7,7 @@ blog.controller('NavCtrl', ['$scope', '$rootScope', '$location', 'growl', 'Auth'
   $scope.logout = function () {
     Auth.logout().then(function (res) {
       $rootScope.isAuthenticated = false;
-      growl.addInfoMessage('You have been logged out.');
+      growl.addInfoMessage(res.message);
     });
   };
 
@@ -28,9 +28,14 @@ blog.controller('NavCtrl', ['$scope', '$rootScope', '$location', 'growl', 'Auth'
     growl.addSuccessMessage('Post: ' + created.title + ' created.');
   });
 
+  socket.on('auth:user-login', function(data) {
+    var user = data.user[0];
+    growl.addSuccessMessage(user.username + ' has logged in!');
+  });
+
 }]);
 
-var LoginModalInstanceCtrl = function ($scope, $rootScope, $modalInstance, growl, Auth) {
+var LoginModalInstanceCtrl = function ($scope, $rootScope, $modalInstance, growl, Auth, socket) {
   $scope.username = '';
   $scope.password = '';
 
@@ -47,15 +52,17 @@ var LoginModalInstanceCtrl = function ($scope, $rootScope, $modalInstance, growl
       username: $scope.username,
       password: $scope.password
     }).then(function (res) {
-        $rootScope.isAuthenticated = true;
-        $scope.cancel();
-        $scope.$broadcast('event:auth-confirmed');
-        growl.addSuccessMessage('You are now authenticated.');
+        if (res.length) {
+          $rootScope.isAuthenticated = true;
+          $scope.cancel();
+          $scope.$broadcast('auth:user-login');
+          growl.addSuccessMessage('You are now authenticated.');
+        }
       }, function (error) {
         $scope.password = '';
-        $scope.$broadcast('event:auth-rejected');
+        $scope.$broadcast('auth:user-rejected');
         $scope.isError = true;
-        $scope.errorMessage = 'Something goes wrong! ' + error.message;
+        $scope.errorMessage = error.message;
       });
   };
 };
