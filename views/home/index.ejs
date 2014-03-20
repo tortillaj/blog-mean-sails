@@ -1,4 +1,4 @@
-<header>
+<header ng-controller="NavCtrl">
 
   <section class="row">
       <h2 class="large-12 columns">
@@ -10,7 +10,7 @@
   </section>
 
 <div class="row">
-  <nav class="top-bar" ng-controller="NavCtrl" data-topbar>
+  <nav class="top-bar" data-topbar>
     <ul class="title-area">
       <li class="name"><h1><a href="/">Blog</a></h1></li>
       <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
@@ -36,6 +36,10 @@
     </section>
 
   </nav>
+  </div>
+
+  <div class="row" ng-show="alerts">
+    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
   </div>
 </header>
 

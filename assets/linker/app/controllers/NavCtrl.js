@@ -23,8 +23,9 @@ blog.controller('NavCtrl', ['$scope', '$rootScope', '$location', 'growl', 'Auth'
     growl.addSuccessMessage('Post: ' + updated.title + ' updated.');
   });
 
-  socket.on('post:create', function(post) {
-    growl.addSuccessMessage('Post: ' + post.post.title + ' created.');
+  socket.on('post:create', function(data) {
+    var created = data.post;
+    growl.addSuccessMessage('Post: ' + created.title + ' created.');
   });
 
 }]);

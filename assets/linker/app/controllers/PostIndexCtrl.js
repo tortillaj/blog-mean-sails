@@ -16,4 +16,5 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
     $scope.prevLink = '/page/' + ($scope.datas.currentPage - 1);
     $scope.nextLink = '/page/' + ($scope.datas.currentPage + 1);
   }
+
 }]);
