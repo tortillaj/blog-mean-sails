@@ -1,4 +1,4 @@
-blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl', 'Post', function ($scope, $location, $routeParams, growl, Post) {
+blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl', 'Post', 'socket', function ($scope, $location, $routeParams, growl, Post, socket) {
 
   if ($routeParams.id) {
     $scope.post = Post.show({ id: $routeParams.id });
@@ -29,6 +29,8 @@ blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl',
         if (response.$resolved) {
           growl.addSuccessMessage('Post <strong>' + response.title + '</strong> has been successfully created.');
           $location.path('/article/' + response.slug + '/' + response.id);
+
+          socket.emit('post:create', { post: response });
         }
       }, function(response) {
         failure(response.data.message);

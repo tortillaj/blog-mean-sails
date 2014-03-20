@@ -131,27 +131,36 @@ module.exports = {
 
 
   create: function(req, res) {
+
     var getSlug = require('speakingurl');
     var slug = req.param('slug') || getSlug(req.param('title'));
 
     Post.findBySlugIn(slug).done(function(error, post) {
       if (error) return res.serverError(error);
-      if (post) return res.send({'message': 'Slug already taken! Pick a new slug for this post.'}, 400);
-    });
 
-    var newPost = {
-      title: req.param('title'),
-      slug: slug,
-      body: req.param('body'),
-      tags: req.param('tags'),
-      categories: req.param('categories'),
-      status: req.param('status')
-    };
+      if (post.length) {
 
-    Post.create(newPost).done(function(error, post) {
-      if (error) return res.serverError(error);
-      //Post.publishCreate(JSON.stringify(post));
-      res.send(post);
+        return res.send({'message': 'Slug already taken! Pick a new slug for this post.'}, 400);
+
+      } else {
+
+        var newPost = {
+          title: req.param('title'),
+          slug: slug,
+          body: req.param('body'),
+          tags: req.param('tags'),
+          categories: req.param('categories'),
+          status: req.param('status')
+        };
+
+        Post.create(newPost).done(function(error, post) {
+          if (error) return res.serverError(error);
+          sails.io.sockets.emit('post:create', { post: post });
+          res.send(post);
+        });
+
+      }
+
     });
   },
 
@@ -175,7 +184,8 @@ module.exports = {
       for (var i = 0; i < post.length; i++) {
         postObj[i] = post[i];
       }
-      Post.publishUpdate(id, postObj);
+
+      sails.io.sockets.emit('post:update', { post: postObj });
       res.send(postObj);
     });
   },

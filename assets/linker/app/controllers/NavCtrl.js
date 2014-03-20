@@ -1,4 +1,4 @@
-blog.controller('NavCtrl', ['$scope', '$rootScope', '$location', 'growl', 'Auth', '$modal', function ($scope, $rootScope, $location, growl, Auth, $modal) {
+blog.controller('NavCtrl', ['$scope', '$rootScope', '$location', 'growl', 'Auth', '$modal', 'socket', function ($scope, $rootScope, $location, growl, Auth, $modal, socket) {
 
   $scope.search = function () {
     $location.path('/search/' + $scope.searchQuery);
@@ -17,6 +17,15 @@ blog.controller('NavCtrl', ['$scope', '$rootScope', '$location', 'growl', 'Auth'
       controller: LoginModalInstanceCtrl
     });
   };
+
+  socket.on('post:update', function(post) {
+    var updated = post.post[0];
+    growl.addSuccessMessage('Post: ' + updated.title + ' updated.');
+  });
+
+  socket.on('post:create', function(post) {
+    growl.addSuccessMessage('Post: ' + post.post.title + ' created.');
+  });
 
 }]);
 
