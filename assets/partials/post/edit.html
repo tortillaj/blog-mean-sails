@@ -1,59 +1,70 @@
 <div class="large-12 columns panel">
     <i class="pencil icon"></i>
+
     <div class="content">
         <h2>{{ pageTitle }}</h2>
+
         <div class="subheader">Write your post using Markdown.</div>
     </div>
 </div>
 
 <form id="post-form" name="postForm" class="large-12 columns" role="form" ng-submit="submit()">
 
-    <div class="field" ng-class="{ 'error' : postForm.title.$invalid && !postForm.title.$pristine }">
-        <label for="input-title">Title</label>
-        <input type="text" id="input-title" name="title" ng-model="post.title" placeholder="Post title..." required />
+    <div class="row">
+        <tabset>
+
+            <tab heading="Basic Information">
+                <div class="field" ng-class="{ 'error' : postForm.title.$invalid && !postForm.title.$pristine }">
+                    <label for="input-title">Title</label>
+                    <input type="text" id="input-title" name="title" ng-model="post.title" placeholder="Post title..." required />
+                </div>
+                <div class="field">
+                    <label for="input-slug">Slug (optional)</label>
+                    <input type="text" id="input-slug" name="slug" ng-model="post.slug" placeholder="post-title"/>
+                </div>
+                <div class="field">
+                    <label for="post-status">Status</label>
+                    <select id="post-status" ng-model="post.status">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                    </select>
+                </div>
+            </tab>
+
+            <tab heading="Categories & Tags">
+                <div class="field">
+                    <label for="input-tags">Tags</label>
+                    <tags-input ng-model="post.tags" id="input-tags" class="input-tags" replaceSpacesWithDashes="true"></tags-input>
+                </div>
+                <div class="field">
+                    <label for="input-categories">Categories</label>
+                    <tags-input ng-model="post.categories" id="input-categories" class="input-categories" placeholder="Add a category" replaceSpacesWithDashes="true" addOnEnter="true"></tags-input>
+                </div>
+            </tab>
+
+        </tabset>
     </div>
-    <div class="field">
-        <label for="input-slug">Slug (optional)</label>
-        <input type="text" id="input-slug" name="slug" ng-model="post.slug" placeholder="post-title" />
-    </div>
-    <div class="field">
-        <label for="post-status">Status</label>
-        <select id="post-status" ng-model="post.status">
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-        </select>
-    </div>
+
 
     <div class="row">
         <div class="large-6 columns" ng-class="{ 'error' : postForm.content.$invalid && !postForm.content.$pristine }">
-            <label for="post-content">Content (use <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>, preview will appear further down)</label>
+            <label for="post-content" class="h3">Content (use <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>)</label>
 
             <div class="post-content-editor" post-editor>
-                <div class="upload-button ui blue mini button floated right">
+                <div>
                     <i class="icon upload disk"></i>
-                    <input type="file" class="upload-field" multiple />
-                </div>
-                <div class="ui dimmer">
-                    <div class="ui loader"></div>
+                    <input type="file" class="upload-field" multiple/>
                 </div>
                 <textarea class="ui attached" id="post-content" name="content" ng-model="post.body" required></textarea>
             </div>
         </div>
         <div class="large-6 columns">
-            <label for="post-preview">Preview</label>
+            <label for="post-preview" class="h3">Preview</label>
+
             <div class="ui segment">
                 <markdown id="post-preview" ng-model="post.body"></markdown>
             </div>
         </div>
-    </div>
-
-    <div class="field">
-        <label for="input-tags">Tags</label>
-        <tags-input ng-model="post.tags" id="input-tags" class="input-tags" replaceSpacesWithDashes="true"></tags-input>
-    </div>
-    <div class="field">
-        <label for="input-categories">Categories</label>
-        <tags-input ng-model="post.categories" id="input-categories" class="input-categories" placeholder="Add a category" replaceSpacesWithDashes="true" addOnEnter="true"></tags-input>
     </div>
 
 
