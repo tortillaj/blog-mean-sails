@@ -24,10 +24,10 @@
         <footer class="row">
             <div class="large-6 small-12 columns">
                 <ul class="button-group" ng-show="post.tags.length">
-                    <li class="button tiny secondary" ng-repeat="tag in post.tags"><a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag }}</a></li>
+                    <li class="button tiny secondary" ng-repeat="tag in post.tags"><a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag | hyphensToSpaces | lowercase }}</a></li>
                 </ul>
                 <ul class="button-group" ng-show="post.categories.length">
-                    <li class="button tiny secondary" ng-repeat="category in post.categories"><a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category }}</a></li>
+                    <li class="button tiny secondary" ng-repeat="category in post.categories"><a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category | hyphensToSpaces }}</a></li>
                 </ul>
             </div>
             <div class="large-6 small-12 columns">
