@@ -1,14 +1,16 @@
-blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl', 'Post', 'socket', function ($scope, $location, $routeParams, growl, Post, socket) {
+blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl', '$document', 'Post', 'socket', function ($scope, $location, $routeParams, growl, $document, Post, socket) {
 
   if ($routeParams.id) {
     $scope.post = Post.show({ id: $routeParams.id });
-    $scope.pageTitle = 'Edit post';
+    $scope.title = 'Edit post';
     $scope.buttonLabel = 'Update';
   } else {
     $scope.post = new Post();
-    $scope.pageTitle = 'New post';
+    $scope.title = 'New post';
     $scope.buttonLabel = 'Publish';
   }
+
+  $scope.meta.setTitle($scope.title);
 
   $scope.submit = function () {
 

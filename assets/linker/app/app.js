@@ -119,5 +119,15 @@ var blog = angular.module('Blog', [
       $templateCache.put('ngTagsInput/auto-complete.html',
         '<div class="autocomplete" ng-show="suggestionList.visible"><ul class="suggestion-list"><li class="suggestion-item" ng-repeat="item in suggestionList.items | limitTo:options.maxResultsToShow" ng-class="{selected: item == suggestionList.selected}" ng-click="addSuggestion()" ng-mouseenter="suggestionList.select($index)" ng-bind-html="highlight(item)"></li></ul></div>'
       );
+
+      $rootScope.meta = {
+        setTitle: function(title) {
+          this.title = title + ' | Polyglot Programmer and Front End Developer';
+        }
+      };
+
+      $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+        $rootScope.meta.setTitle(current.$$route.title || 'James Cole');
+      })
     }
   ]);
