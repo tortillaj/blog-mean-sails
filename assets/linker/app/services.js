@@ -3,14 +3,14 @@
 angular.module('blog.services', ['ngResource'])
 
 // service for posts
-  .factory('Post', ['$resource', 'Globals',
-    function ($resource, Globals) {
+  .factory('Post', ['$resource', 'Globals', '$rootScope',
+    function ($resource, Globals, $rootScope) {
       return $resource(Globals.apiPrefix + '/posts/:id', {
         slug: "@_id"
       }, {
         'index': {
           method: 'GET',
-          params: { page: 'page' }
+          params: { page: 'page', isAuthenticated: $rootScope.isAuthenticated }
         },
         'show': {
           method: 'GET'
@@ -27,17 +27,17 @@ angular.module('blog.services', ['ngResource'])
         'search': {
           method: 'GET',
           action: 'search',
-          params: { query: 'search', page: 'page' }
+          params: { query: 'search', page: 'page', isAuthenticated: $rootScope.isAuthenticated }
         },
         'tag': {
           method: 'GET',
           action: 'tag',
-          params: { tag: 'tag', page: 'page' }
+          params: { tag: 'tag', page: 'page', isAuthenticated: $rootScope.isAuthenticated }
         },
         'category': {
           method: 'GET',
           action: 'category',
-          params: { category: 'tag', page: 'page' }
+          params: { category: 'tag', page: 'page', isAuthenticated: $rootScope.isAuthenticated }
         }
       });
     }
