@@ -11,7 +11,7 @@
     </h2>
 </div>
 
-<div class="row" ng-show="datas.posts.length">
+<div class="row" ng-show="datas.posts.length" listview>
 
     <article class="large-12 columns" ng-repeat="post in datas.posts">
 
@@ -41,11 +41,11 @@
     </article>
 
     <section class="row pagination">
-        <div ng-show="datas.currentPage > 1" class="large-6 columns">
+        <div ng-show="datas.totalPosts > 10" class="large-6 columns">
             <a href="{{ prevLink }}" class="button small"><i class="icon arrow left"></i> Previous posts</a>
         </div>
 
-        <div ng-show="datas.currentPage < datas.totalPosts / datas.perPage" class="large-6 columns">
+        <div ng-show="datas.currentPage < datas.totalPosts / datas.postsPerPage" class="large-6 columns">
             <a href="{{ nextLink }}" class="button small">Next posts <i class="icon arrow right"></i></a>
         </div>
     </section>

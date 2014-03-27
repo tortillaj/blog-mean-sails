@@ -18,7 +18,6 @@
 module.exports = {
 
   index: function(req, res) {
-
     var page = req.param('page') || 1;
     var postsPerPage = req.param('postsPerPage') || 10;
     var options = {

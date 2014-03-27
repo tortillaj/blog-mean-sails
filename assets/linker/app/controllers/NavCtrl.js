@@ -55,12 +55,12 @@ var LoginModalInstanceCtrl = function ($scope, $rootScope, $modalInstance, growl
         if (res.length) {
           $rootScope.isAuthenticated = true;
           $scope.cancel();
-          $scope.$broadcast('auth:user-login');
+          $scope.$emit('auth:user-login');
           growl.addSuccessMessage('You are now authenticated.');
         }
       }, function (error) {
         $scope.password = '';
-        $scope.$broadcast('auth:user-rejected');
+        $scope.$emit('auth:user-rejected');
         $scope.isError = true;
         $scope.errorMessage = error.message;
       });
