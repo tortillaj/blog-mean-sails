@@ -28,7 +28,8 @@
     "angular-moment": "~0.6.2",
     "foundation": "5.2.0",
     "angular-foundation": "0.1.0",
-    "angulartics": "0.14.15"
+    "angulartics": "0.14.15",
+    "prism": "https://github.com/LeaVerou/prism.git#gh-pages"
   },
   "resolutions": {
     "angular": "1.2.15-build.2399+sha.ca4ddfa"
