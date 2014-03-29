@@ -41,11 +41,15 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
   }
 
   $scope.$on('post:refresh', function() {
-    console.log('logged in');
+    $scope.datas = Post.index(params, function(postData) {
+      $scope.meta.setTitle('Articles');
+      $scope.prevLink = '/#!/page/' + (postData.currentPage - 1);
+      $scope.nextLink = '/#!/page/' + (postData.currentPage + 1);
+    });
   });
 
   $scope.loadMore = function() {
-    console.log('time to scroll');
+    //console.log('time to scroll');
   }
 
 }]);
