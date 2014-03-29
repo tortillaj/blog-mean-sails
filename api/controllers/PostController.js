@@ -21,8 +21,8 @@ module.exports = {
     var page = req.param('page') || 1;
     var postsPerPage = req.param('postsPerPage') || 10;
     var options = {};
-console.log(typeof req.session.passport.user === 'undefined');
-    //options.status = (typeof req.session.passport.user === 'undefined') ? 'publish' : 'all';
+
+    options.status = (typeof req.session.passport.user === 'undefined') ? 'published' : ['published', 'draft'];
 
     // Add to the options object to support searching
     if (req.param('query')) {
