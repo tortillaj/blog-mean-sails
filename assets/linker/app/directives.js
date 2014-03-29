@@ -62,6 +62,43 @@ angular.module('blog.directives', [])
       }
     })
 
+    .directive('teaserImage', ['$fileUpload', function($fileUpload) {
+      return {
+        controller: function ($scope, $fileUpload, growl) {
+          $scope.upload = function (files, cb) {
+            var filesPath = [], filesProcessed = 0;
+            for (var i = 0; i < files.length; i++) {
+              $fileUpload.upload(files[i]).then(function (filePath) {
+                filesProcessed++;
+                filesPath.push(filePath);
+                growl.addSuccessMessage('File ' + filePath + ' uploaded');
+                if (filesProcessed === files.length) cb(filesPath);
+              }, function (err) {
+                filesProcessed++;
+                growl.addSuccessMessage('File upload error. ' + err);
+                if (filesProcessed === files.length) cb(filesPath);
+              });
+            }
+          };
+        },
+        link: function (scope, el, attrs) {
+          var dimmer = el.find('.ui.dimmer');
+
+          el.find('.upload-field').change(function (e) {
+            dimmer.addClass('active');
+            scope.upload(e.target.files, function (files) {
+              if (files) {
+                angular.forEach(files, function (filePath) {
+                  el.find('.post-teaser-image').val(filePath);
+                });
+              }
+              dimmer.removeClass('active');
+            });
+          });
+        }
+      };
+    }])
+
     .directive('postEditor', ['$fileUpload', 'Globals', function ($fileUpload, Globals) {
       jQuery.fn.extend({
         insertAtCaret: function (myValue) {

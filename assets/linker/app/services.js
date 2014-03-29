@@ -109,7 +109,7 @@ angular.module('blog.services', ['ngResource'])
         upload: function (file) {
           var defer = $q.defer();
 
-          if (acceptedTypes.indexOf(file.type) > 0) {
+          if (acceptedTypes.indexOf(file.type) > -1) {
             $http({
               method: 'POST',
               url: Globals.apiPrefix + '/upload/send',

@@ -23,7 +23,8 @@ module.exports = {
     status: {
       type: 'string',
       in : ['published', 'draft']
-    }
+    },
+    teaserImage: 'string'
   },
 
   beforeCreate: function(values, next) {

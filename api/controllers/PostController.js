@@ -149,7 +149,8 @@ module.exports = {
           body: req.param('body'),
           tags: req.param('tags'),
           categories: req.param('categories'),
-          status: req.param('status')
+          status: req.param('status'),
+          teaserImage: req.param('teaserImage')
         };
 
         Post.create(newPost).done(function(error, post) {
@@ -172,7 +173,8 @@ module.exports = {
       slug: req.param('slug'),
       tags: req.param('tags'),
       categories: req.param('categories'),
-      status: req.param('status')
+      status: req.param('status'),
+      teaserImage: req.param('teaserImage')
     };
 
     Post.update({
