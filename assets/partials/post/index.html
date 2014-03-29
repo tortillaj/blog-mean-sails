@@ -13,7 +13,7 @@
 
 <div class="row listview" ng-show="datas.posts.length" infinite-scroll="loadMore()" infinite-scroll-distance="3">
 
-    <article class="large-12 columns" ng-repeat="post in datas.posts">
+    <article class="large-12 columns" ng-repeat="post in datas.posts" ng-class="'status-'+post.status">
 
         <header>
             <h2 class="ui header"><a href="/#!/article/{{ post.slug }}/{{ post.id }}">{{ post.title }} <small>Posted <time>{{ post.createdAt | timeago }}</time></small></a></h2>
