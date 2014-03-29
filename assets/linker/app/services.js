@@ -86,6 +86,7 @@ angular.module('blog.services', ['ngResource'])
           })
               .success(function (data, status, headers, config) {
                 defer.resolve(data, status);
+                $rootScope.$broadcast('post:refresh');
               })
               .error(function (data, status, headers, config) {
                 defer.reject(data, status);
