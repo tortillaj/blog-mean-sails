@@ -28,6 +28,7 @@ var blog = angular.module('Blog', [
     'ngRoute',
     'ngSanitize',
     'ngTagsInput',
+    'infinite-scroll',
     'angular-growl',
     'mm.foundation',
     'blog.filters',
@@ -128,6 +129,6 @@ var blog = angular.module('Blog', [
 
       $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
         $rootScope.meta.setTitle(current.$$route.title || 'James Cole');
-      })
+      });
     }
   ]);

@@ -71,6 +71,7 @@ module.exports = function(grunt) {
     'linker/bower_components/angular-route/angular-route.js',
     'linker/bower_components/angular-sanitize/angular-sanitize.js',
     'linker/bower_components/ng-tags-input/ng-tags-input.js',
+    'linker/bower_components/ngInfiniteScroll/ng-infinite-scroll.js',
     'linker/bower_components/showdown/src/showdown.js',
     'linker/bower_components/truncate/jquery.truncate.js',
     'linker/bower_components/prism/prism.js',
