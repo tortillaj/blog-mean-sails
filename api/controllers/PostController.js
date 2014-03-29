@@ -20,9 +20,9 @@ module.exports = {
   index: function(req, res) {
     var page = req.param('page') || 1;
     var postsPerPage = req.param('postsPerPage') || 10;
-    var options = {
-      status: 'published'
-    };
+    var options = {};
+console.log(typeof req.session.passport.user === 'undefined');
+    //options.status = (typeof req.session.passport.user === 'undefined') ? 'publish' : 'all';
 
     // Add to the options object to support searching
     if (req.param('query')) {
@@ -70,7 +70,7 @@ module.exports = {
     }
 
     // Query the model to get the posts
-    Post.find(options).done(function(error, posts) {
+    Post.find(options).done(function(error, allPosts) {
       if (error) return res.serverError(error);
 
       Post.find(options)
@@ -81,13 +81,13 @@ module.exports = {
         })
         .done(function(error, posts) {
           res.send({
-            totalPosts: posts.length,
+            totalPosts: allPosts.length,
             postsPerPage: postsPerPage,
             currentPage: parseInt(page),
             posts: posts
           })
-        })
-    })
+        });
+    });
 
 
   },
