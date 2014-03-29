@@ -7,9 +7,10 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
     params.query = $routeParams.query;
 
     $scope.datas = Post.search(params, function(postData) {
+      $scope.meta.setTitle('Search for ' + $routeParams.query);
+      $scope.firstPost = $scope.datas.posts.shift();
       $scope.prevLink = '/#!/search?q=' + $routeParams.query + '&page=' + (postData.currentPage - 1);
       $scope.nextLink = '/#!/search?q=' + $routeParams.query + '&page=' + (postData.currentPage + 1);
-      $scope.meta.setTitle('Search for ' + $routeParams.query);
     });
   }
   else {
@@ -18,6 +19,7 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
 
       $scope.datas = Post.tag(params, function(postData) {
         $scope.meta.setTitle($routeParams.tag);
+        $scope.firstPost = $scope.datas.posts.shift();
         $scope.prevLink = '/#!/tag/' + $routeParams.tag + '&page=' + (postData.currentPage - 1);
         $scope.nextLink = '/#!/tag/' + $routeParams.tag + '&page=' + (postData.currentPage + 1);
       });
@@ -27,6 +29,7 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
 
       $scope.datas = Post.category(params, function(postData) {
         $scope.meta.setTitle($routeParams.category);
+        $scope.firstPost = $scope.datas.posts.shift();
         $scope.prevLink = '/#!/category/' + $routeParams.category + '&page=' + (postData.currentPage - 1);
         $scope.nextLink = '/#!/category/' + $routeParams.category + '&page=' + (postData.currentPage + 1);
       });
@@ -34,6 +37,7 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
     else {
       $scope.datas = Post.index(params, function(postData) {
         $scope.meta.setTitle('Articles');
+        $scope.firstPost = $scope.datas.posts.shift();
         $scope.prevLink = '/#!/page/' + (postData.currentPage - 1);
         $scope.nextLink = '/#!/page/' + (postData.currentPage + 1);
       });
@@ -43,6 +47,7 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
   $scope.$on('post:refresh', function() {
     $scope.datas = Post.index(params, function(postData) {
       $scope.meta.setTitle('Articles');
+      $scope.firstPost = $scope.datas.posts.shift();
       $scope.prevLink = '/#!/page/' + (postData.currentPage - 1);
       $scope.nextLink = '/#!/page/' + (postData.currentPage + 1);
     });

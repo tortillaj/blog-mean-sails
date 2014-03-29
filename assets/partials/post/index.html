@@ -11,12 +11,55 @@
     </h2>
 </div>
 
-<div class="row listview" ng-show="datas.posts.length" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+<div class="row">
+    <article class="large-12 columns">
+
+        <header>
+            <h2 class="ui header"><a href="/#!/article/{{ firstPost.slug }}/{{ firstPost.id }}">{{ firstPost.title }}
+                <small>Posted
+                    <time>{{ firstPost.createdAt | timeago }}</time>
+                </small>
+            </a></h2>
+        </header>
+
+        <markdown ng-model="firstPost.body"></markdown>
+
+        <footer class="row">
+            <div class="large-6 small-12 columns">
+                <ul class="button-group" ng-show="firstPost.tags.length">
+                    <li class="button tiny secondary" ng-repeat="tag in firstPost.tags">
+                        <a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag | hyphensToSpaces | lowercase }}</a>
+                    </li>
+                </ul>
+                <ul class="button-group" ng-show="firstPost.categories.length">
+                    <li class="button tiny secondary" ng-repeat="category in firstPost.categories"><a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category | hyphensToSpaces }}</a></li>
+                </ul>
+            </div>
+            <div class="large-6 small-12 columns">
+                <ul class="button-group">
+                    <li ng-show="isAuthenticated">
+                        <a href="/#!/post/{{ firstPost.id }}/edit" class="button small secondary">Edit <i class="icon pencil"></i></a>
+                    </li>
+                    <li>
+                        <a href="/#!/article/{{ firstPost.slug }}/{{ firstPost.id }}" class="button small">Read more <i class="ui primary arrow right"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+
+    </article>
+</div>
+
+<article class="row listview" ng-show="datas.posts.length" infinite-scroll="loadMore()" infinite-scroll-distance="3">
 
     <article class="large-12 columns" ng-repeat="post in datas.posts" ng-class="'status-'+post.status">
 
         <header>
-            <h2 class="ui header"><a href="/#!/article/{{ post.slug }}/{{ post.id }}">{{ post.title }} <small>Posted <time>{{ post.createdAt | timeago }}</time></small></a></h2>
+            <h2 class="ui header"><a href="/#!/article/{{ post.slug }}/{{ post.id }}">{{ post.title }}
+                <small>Posted
+                    <time>{{ post.createdAt | timeago }}</time>
+                </small>
+            </a></h2>
         </header>
 
         <markdown ng-model="post.body" truncate="500"></markdown>
@@ -32,8 +75,12 @@
             </div>
             <div class="large-6 small-12 columns">
                 <ul class="button-group">
-                    <li ng-show="isAuthenticated"><a href="/#!/post/{{ post.id }}/edit" class="button small secondary">Edit <i class="icon pencil"></i></a></li>
-                    <li><a href="/#!/article/{{ post.slug }}/{{ post.id }}" class="button small">Read more <i class="ui primary arrow right"></i></a></li>
+                    <li ng-show="isAuthenticated">
+                        <a href="/#!/post/{{ post.id }}/edit" class="button small secondary">Edit <i class="icon pencil"></i></a>
+                    </li>
+                    <li>
+                        <a href="/#!/article/{{ post.slug }}/{{ post.id }}" class="button small">Read more <i class="ui primary arrow right"></i></a>
+                    </li>
                 </ul>
             </div>
         </footer>
@@ -50,5 +97,5 @@
         </div>
     </section>
 
-</div>
+</article>
 
