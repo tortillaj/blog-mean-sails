@@ -40,7 +40,6 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
 
   $scope.getTagPosts = function() {
     $scope.datas = Post.tag($scope.params, function (postData) {
-      console.dir(postData);
       $scope.meta.setTitle($routeParams.tag);
       $scope.firstPost = postData.posts[0];
       $scope.posts = postData.posts;
@@ -62,25 +61,6 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
 
 
 
-  $scope.loadPosts = function(direction, query) {
-    switch (direction) {
-      case 'previous':
-        $scope.params.page--;
-        break;
-      case 'next':
-        $scope.params.page++;
-        break;
-      default:
-        $scope.params.page = 1;
-    }
-
-    if (typeof query !== 'undefined') {
-      jQuery.extend($scope.params, query);
-    }
-
-    $scope.whichPosts();
-  };
-
   $scope.whichPosts = function() {
     if ($scope.params.query) {
       $scope.getSearchPosts();
@@ -98,6 +78,25 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
     }
   };
 
+  $scope.loadPosts = function(direction, query) {
+    switch (direction) {
+      case 'previous':
+        $scope.params.page--;
+        break;
+      case 'next':
+        $scope.params.page++;
+        break;
+      case 'first':
+        $scope.params.page = 1;
+        break;
+    }
+
+    if (typeof query !== 'undefined') {
+      jQuery.extend($scope.params, query);
+    }
+
+    $scope.whichPosts();
+  };
 
   $scope.whichPosts();
 

@@ -27,12 +27,16 @@
         <footer class="row">
             <div class="large-6 small-12 columns">
                 <ul class="button-group" ng-show="firstPost.tags.length">
-                    <li class="button tiny secondary" ng-repeat="tag in firstPost.tags">
-                        <a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag | hyphensToSpaces | lowercase }}</a>
+                    <li ng-repeat="tag in firstPost.tags">
+                        <!-- a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag | hyphensToSpaces | lowercase }}</a -->
+                        <button class="button tiny secondary" ng-click="loadPosts('first', { tag: tag })">{{ tag | hyphensToSpaces | lowercase }}</button>
                     </li>
                 </ul>
                 <ul class="button-group" ng-show="firstPost.categories.length">
-                    <li class="button tiny secondary" ng-repeat="category in firstPost.categories"><a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category | hyphensToSpaces }}</a></li>
+                    <li ng-repeat="category in firstPost.categories">
+                        <!-- a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category | hyphensToSpaces }}</a -->
+                        <button class="button tiny secondary" ng-click="loadPosts('first', { category: category })">{{ category | hyphensToSpaces }}</button>
+                    </li>
                 </ul>
             </div>
             <div class="large-6 small-12 columns">
@@ -67,10 +71,16 @@
         <footer class="row">
             <div class="large-6 small-12 columns">
                 <ul class="button-group" ng-show="post.tags.length">
-                    <li class="button tiny secondary" ng-repeat="tag in post.tags"><a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag | hyphensToSpaces | lowercase }}</a></li>
+                    <li ng-repeat="tag in post.tags">
+                        <!-- a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag | hyphensToSpaces | lowercase }}</a -->
+                        <button class="button tiny secondary" ng-click="loadPosts('first', { tag: tag })">{{ tag | hyphensToSpaces | lowercase }}</button>
+                    </li>
                 </ul>
                 <ul class="button-group" ng-show="post.categories.length">
-                    <li class="button tiny secondary" ng-repeat="category in post.categories"><a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category | hyphensToSpaces }}</a></li>
+                    <li ng-repeat="category in post.categories">
+                        <button class="button tiny secondary" ng-click="loadPosts('first', { category: category })">{{ category | hyphensToSpaces }}</button>
+                        <!-- a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category | hyphensToSpaces }}</a -->
+                    </li>
                 </ul>
             </div>
             <div class="large-6 small-12 columns">
