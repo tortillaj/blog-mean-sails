@@ -1,15 +1,5 @@
 <header ng-controller="NavCtrl">
 
-  <section class="row">
-      <h2 class="large-12 columns">
-        <a href="/" id="logo"><i class="circular emphasized inverted teal book outline icon"></i></a>
-        <div class="content">
-          <div class="subheader">Welcome! Please find below some fantastic posts.</div>
-        </div>
-      </h2>
-  </section>
-
-<div class="row">
   <nav class="top-bar" data-topbar>
     <ul class="title-area">
       <li class="name"><h1><a href="/">Blog</a></h1></li>
@@ -36,11 +26,11 @@
     </section>
 
   </nav>
-  </div>
 
   <div class="row" ng-show="alerts">
     <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
   </div>
+
 </header>
 
 <main class="row" ng-view></main>

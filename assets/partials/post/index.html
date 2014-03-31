@@ -11,105 +11,117 @@
     </h2>
 </div>
 
-<div class="row" ng-if="firstPost.title">
-    <article class="large-12 columns">
+<article class="off-canvas-wrap listview" ng-show="posts.length">
+    <div class="inner-wrap">
 
-        <header>
-            <h2 class="ui header"><a href="/#!/article/{{ firstPost.slug }}/{{ firstPost.id }}">{{ firstPost.title }}
-                <small>Posted
-                    <time>{{ firstPost.createdAt | timeago }}</time>
-                </small>
-            </a></h2>
-        </header>
+        <nav class="tab-bar">
+            <section class="left-small">
+                <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+            </section>
+        </nav>
 
-        <markdown ng-model="firstPost.body"></markdown>
+        <aside class="left-off-canvas-menu">
+            <article class="large-12 columns" ng-repeat="post in posts" ng-class="'status-'+post.status">
 
-        <footer class="row">
-            <div class="large-6 small-12 columns">
-                <ul class="button-group" ng-show="firstPost.tags.length">
-                    <li ng-repeat="tag in firstPost.tags">
-                        <!-- a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag | hyphensToSpaces | lowercase }}</a -->
-                        <button class="button tiny secondary" ng-click="loadPosts('first', { tag: tag })">{{ tag | hyphensToSpaces | lowercase }}</button>
-                    </li>
-                </ul>
-                <ul class="button-group" ng-show="firstPost.categories.length">
-                    <li ng-repeat="category in firstPost.categories">
-                        <!-- a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category | hyphensToSpaces }}</a -->
-                        <button class="button tiny secondary" ng-click="loadPosts('first', { category: category })">{{ category | hyphensToSpaces }}</button>
-                    </li>
-                </ul>
-            </div>
-            <div class="large-6 small-12 columns">
-                <ul class="button-group">
-                    <li ng-show="isAuthenticated">
-                        <a href="/#!/post/{{ firstPost.id }}/edit" class="button small secondary">Edit <i class="icon pencil"></i></a>
-                    </li>
-                    <li>
-                        <a href="/#!/article/{{ firstPost.slug }}/{{ firstPost.id }}" class="button small right">Read more <i class="ui primary arrow right"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
+                <header>
+                    <h2 class="ui header"><a href="/#!/article/{{ post.slug }}/{{ post.id }}">{{ post.title }}
+                        <small>Posted
+                            <time>{{ post.createdAt | timeago }}</time>
+                        </small>
+                    </a></h2>
+                </header>
 
-    </article>
-</div>
+                <!-- markdown ng-model="post.body" truncate="500"></markdown -->
 
-<article class="row listview" ng-show="posts.length">
+                <footer class="row">
+                    <div class="large-6 small-12 columns">
+                        <ul class="button-group" ng-show="post.tags.length">
+                            <li ng-repeat="tag in post.tags">
+                                <!-- a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag | hyphensToSpaces | lowercase }}</a -->
+                                <button class="button tiny secondary" ng-click="loadPosts('first', { tag: tag })">{{ tag | hyphensToSpaces | lowercase }}</button>
+                            </li>
+                        </ul>
+                        <ul class="button-group" ng-show="post.categories.length">
+                            <li ng-repeat="category in post.categories">
+                                <button class="button tiny secondary" ng-click="loadPosts('first', { category: category })">{{ category | hyphensToSpaces }}</button>
+                                <!-- a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category | hyphensToSpaces }}</a -->
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="large-6 small-12 columns">
+                        <ul class="button-group">
+                            <li ng-show="isAuthenticated">
+                                <a href="/#!/post/{{ post.id }}/edit" class="button small secondary">Edit <i class="icon pencil"></i></a>
+                            </li>
+                            <li>
+                                <a href="/#!/article/{{ post.slug }}/{{ post.id }}" class="button small">Read more <i class="ui primary arrow right"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </footer>
 
-    <article class="large-12 columns" ng-repeat="post in posts" ng-class="'status-'+post.status">
+            </article>
 
-        <header>
-            <h2 class="ui header"><a href="/#!/article/{{ post.slug }}/{{ post.id }}">{{ post.title }}
-                <small>Posted
-                    <time>{{ post.createdAt | timeago }}</time>
-                </small>
-            </a></h2>
-        </header>
+            <article class="large-12 columns pagination">
+                <div class="row">
+                <div ng-show="params.page > 1" class="large-6 columns">
+                    <button ng-click="loadPosts('previous')">Previous</button>
+                    <!-- a href="{{ prevLink }}" class="button small left"><i class="icon arrow"></i> Previous posts</a -->
+                </div>
 
-        <markdown ng-model="post.body" truncate="500"></markdown>
+                <div ng-show="params.page < datas.totalPosts / params.postsPerPage" class="large-6 columns">
+                    <button ng-click="loadPosts('next')">Next</button>
+                    <!-- a href="{{ nextLink }}" class="button small right">Next posts <i class="icon arrow"></i></a -->
+                </div>
+                </div>
+            </article>
+        </aside>
 
-        <footer class="row">
-            <div class="large-6 small-12 columns">
-                <ul class="button-group" ng-show="post.tags.length">
-                    <li ng-repeat="tag in post.tags">
-                        <!-- a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag | hyphensToSpaces | lowercase }}</a -->
-                        <button class="button tiny secondary" ng-click="loadPosts('first', { tag: tag })">{{ tag | hyphensToSpaces | lowercase }}</button>
-                    </li>
-                </ul>
-                <ul class="button-group" ng-show="post.categories.length">
-                    <li ng-repeat="category in post.categories">
-                        <button class="button tiny secondary" ng-click="loadPosts('first', { category: category })">{{ category | hyphensToSpaces }}</button>
-                        <!-- a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category | hyphensToSpaces }}</a -->
-                    </li>
-                </ul>
-            </div>
-            <div class="large-6 small-12 columns">
-                <ul class="button-group">
-                    <li ng-show="isAuthenticated">
-                        <a href="/#!/post/{{ post.id }}/edit" class="button small secondary">Edit <i class="icon pencil"></i></a>
-                    </li>
-                    <li>
-                        <a href="/#!/article/{{ post.slug }}/{{ post.id }}" class="button small">Read more <i class="ui primary arrow right"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
+        <section class="row main-section" ng-if="firstPost.title">
+            <article class="large-12 columns">
 
-    </article>
+                <header>
+                    <h2 class="ui header"><a href="/#!/article/{{ firstPost.slug }}/{{ firstPost.id }}">{{ firstPost.title }}
+                        <small>Posted
+                            <time>{{ firstPost.createdAt | timeago }}</time>
+                        </small>
+                    </a></h2>
+                </header>
 
-    <article class="large-12 columns pagination">
-        <div class="row">
-        <div ng-show="params.page > 1" class="large-6 columns">
-            <button ng-click="loadPosts('previous')">Previous</button>
-            <!-- a href="{{ prevLink }}" class="button small left"><i class="icon arrow"></i> Previous posts</a -->
-        </div>
+                <markdown ng-model="firstPost.body"></markdown>
 
-        <div ng-show="params.page < datas.totalPosts / params.postsPerPage" class="large-6 columns">
-            <button ng-click="loadPosts('next')">Next</button>
-            <!-- a href="{{ nextLink }}" class="button small right">Next posts <i class="icon arrow"></i></a -->
-        </div>
-        </div>
-    </article>
+                <footer class="row">
+                    <div class="large-6 small-12 columns">
+                        <ul class="button-group" ng-show="firstPost.tags.length">
+                            <li ng-repeat="tag in firstPost.tags">
+                                <!-- a href="/#!/tag/{{ tag }}"><i class="tag icon"></i> {{ tag | hyphensToSpaces | lowercase }}</a -->
+                                <button class="button tiny secondary" ng-click="loadPosts('first', { tag: tag })">{{ tag | hyphensToSpaces | lowercase }}</button>
+                            </li>
+                        </ul>
+                        <ul class="button-group" ng-show="firstPost.categories.length">
+                            <li ng-repeat="category in firstPost.categories">
+                                <!-- a href="/#!/category/{{ category }}"><i class="archive icon"></i> {{ category | hyphensToSpaces }}</a -->
+                                <button class="button tiny secondary" ng-click="loadPosts('first', { category: category })">{{ category | hyphensToSpaces }}</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="large-6 small-12 columns">
+                        <ul class="button-group">
+                            <li ng-show="isAuthenticated">
+                                <a href="/#!/post/{{ firstPost.id }}/edit" class="button small secondary">Edit <i class="icon pencil"></i></a>
+                            </li>
+                            <li>
+                                <a href="/#!/article/{{ firstPost.slug }}/{{ firstPost.id }}" class="button small right">Read more <i class="ui primary arrow right"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </footer>
 
+            </article>
+        </section>
+
+        <a class="exit-off-canvas"></a>
+
+    </div>
 </article>
 

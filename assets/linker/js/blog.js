@@ -1,7 +1,7 @@
-(function($, Prism) {
+(function($, Foundation) {
 
   $(document).ready(function() {
-    Prism.highlightAll();
+    $(document).foundation();
   });
 
-})(jQuery, Prism);
+})(jQuery, Foundation);
