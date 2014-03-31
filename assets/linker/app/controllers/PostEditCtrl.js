@@ -21,7 +21,6 @@ blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl',
     if ($routeParams.id) {
       $scope.post.$update({ id: $routeParams.id }, function(response, status) {
         data = response[0];
-        console.dir(data);
         growl.addSuccessMessage('Post <strong>' + data.title + '</strong> has been successfully updated.');
         $location.path('/article/' + data.slug + '/' + data.id);
       }, function(error) {

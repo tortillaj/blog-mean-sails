@@ -1,6 +1,6 @@
 <h1 ng-show="pageTitle">{{ pageTitle }}</h1>
 
-<div class="row" ng-hide="datas.posts.length">
+<div class="row" ng-hide="posts.length">
     <h2 class="large-12 columns">
         <i class="attention icon"></i>
 
@@ -11,7 +11,7 @@
     </h2>
 </div>
 
-<div class="row">
+<div class="row" ng-if="firstPost.title">
     <article class="large-12 columns">
 
         <header>
@@ -41,7 +41,7 @@
                         <a href="/#!/post/{{ firstPost.id }}/edit" class="button small secondary">Edit <i class="icon pencil"></i></a>
                     </li>
                     <li>
-                        <a href="/#!/article/{{ firstPost.slug }}/{{ firstPost.id }}" class="button small">Read more <i class="ui primary arrow right"></i></a>
+                        <a href="/#!/article/{{ firstPost.slug }}/{{ firstPost.id }}" class="button small right">Read more <i class="ui primary arrow right"></i></a>
                     </li>
                 </ul>
             </div>
@@ -50,9 +50,9 @@
     </article>
 </div>
 
-<article class="row listview" ng-show="datas.posts.length" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+<article class="row listview" ng-show="posts.length">
 
-    <article class="large-12 columns" ng-repeat="post in datas.posts" ng-class="'status-'+post.status">
+    <article class="large-12 columns" ng-repeat="post in posts" ng-class="'status-'+post.status">
 
         <header>
             <h2 class="ui header"><a href="/#!/article/{{ post.slug }}/{{ post.id }}">{{ post.title }}
@@ -87,15 +87,19 @@
 
     </article>
 
-    <section class="row pagination">
-        <div ng-show="datas.currentPage > 1" class="large-6 columns">
-            <a href="{{ prevLink }}" class="button small"><i class="icon arrow left"></i> Previous posts</a>
+    <article class="large-12 columns pagination">
+        <div class="row">
+        <div ng-show="params.page > 1" class="large-6 columns">
+            <button ng-click="loadPosts('previous')">Previous</button>
+            <!-- a href="{{ prevLink }}" class="button small left"><i class="icon arrow"></i> Previous posts</a -->
         </div>
 
-        <div ng-show="datas.currentPage < datas.totalPosts / datas.postsPerPage" class="large-6 columns">
-            <a href="{{ nextLink }}" class="button small">Next posts <i class="icon arrow right"></i></a>
+        <div ng-show="params.page < datas.totalPosts / params.postsPerPage" class="large-6 columns">
+            <button ng-click="loadPosts('next')">Next</button>
+            <!-- a href="{{ nextLink }}" class="button small right">Next posts <i class="icon arrow"></i></a -->
         </div>
-    </section>
+        </div>
+    </article>
 
 </article>
 

@@ -1,60 +1,108 @@
 blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', function ($scope, $routeParams, growl, Post) {
 
   var page = $routeParams.page || 1;
-  var params = { page: page };
+  var postsPerPage = $routeParams.postsPerPage || 10;
+
+  $scope.params = { page: page, postsPerPage: postsPerPage };
 
   if ($routeParams.query) {
-    params.query = $routeParams.query;
-
-    $scope.datas = Post.search(params, function(postData) {
-      $scope.meta.setTitle('Search for ' + $routeParams.query);
-      $scope.firstPost = $scope.datas.posts.shift();
-      $scope.prevLink = '/#!/search?q=' + $routeParams.query + '&page=' + (postData.currentPage - 1);
-      $scope.nextLink = '/#!/search?q=' + $routeParams.query + '&page=' + (postData.currentPage + 1);
-    });
+    $scope.params.query = $routeParams.query;
   }
   else {
     if ($routeParams.tag) {
-      params.tag = $routeParams.tag;
-
-      $scope.datas = Post.tag(params, function(postData) {
-        $scope.meta.setTitle($routeParams.tag);
-        $scope.firstPost = $scope.datas.posts.shift();
-        $scope.prevLink = '/#!/tag/' + $routeParams.tag + '&page=' + (postData.currentPage - 1);
-        $scope.nextLink = '/#!/tag/' + $routeParams.tag + '&page=' + (postData.currentPage + 1);
-      });
+      $scope.params.tag = $routeParams.tag;
     }
     else if ($routeParams.category) {
-      params.category = $routeParams.category;
-
-      $scope.datas = Post.category(params, function(postData) {
-        $scope.meta.setTitle($routeParams.category);
-        $scope.firstPost = $scope.datas.posts.shift();
-        $scope.prevLink = '/#!/category/' + $routeParams.category + '&page=' + (postData.currentPage - 1);
-        $scope.nextLink = '/#!/category/' + $routeParams.category + '&page=' + (postData.currentPage + 1);
-      });
-    }
-    else {
-      $scope.datas = Post.index(params, function(postData) {
-        $scope.meta.setTitle('Articles');
-        $scope.firstPost = $scope.datas.posts.shift();
-        $scope.prevLink = '/#!/page/' + (postData.currentPage - 1);
-        $scope.nextLink = '/#!/page/' + (postData.currentPage + 1);
-      });
+      $scope.params.category = $routeParams.category;
     }
   }
 
-  $scope.$on('post:refresh', function() {
-    $scope.datas = Post.index(params, function(postData) {
+
+  $scope.getPosts = function() {
+    $scope.datas = Post.index($scope.params, function (postData) {
       $scope.meta.setTitle('Articles');
-      $scope.firstPost = $scope.datas.posts.shift();
+      $scope.firstPost = postData.firstPost[0];
+      $scope.posts = postData.posts;
       $scope.prevLink = '/#!/page/' + (postData.currentPage - 1);
       $scope.nextLink = '/#!/page/' + (postData.currentPage + 1);
     });
-  });
+  };
 
-  $scope.loadMore = function() {
-    //console.log('time to scroll');
-  }
+  $scope.getSearchPosts = function() {
+    $scope.datas = Post.search($scope.params, function (postData) {
+      $scope.meta.setTitle('Search for ' + $routeParams.query);
+      $scope.firstPost = postData.firstPost[0];
+      $scope.posts = postData.posts;
+      $scope.prevLink = '/#!/search?q=' + $routeParams.query + '&page=' + (postData.currentPage - 1);
+      $scope.nextLink = '/#!/search?q=' + $routeParams.query + '&page=' + (postData.currentPage + 1);
+    });
+  };
+
+  $scope.getTagPosts = function() {
+    $scope.datas = Post.tag($scope.params, function (postData) {
+      console.dir(postData);
+      $scope.meta.setTitle($routeParams.tag);
+      $scope.firstPost = postData.posts[0];
+      $scope.posts = postData.posts;
+      $scope.prevLink = '/#!/tag/' + $routeParams.tag + '&page=' + (postData.currentPage - 1);
+      $scope.nextLink = '/#!/tag/' + $routeParams.tag + '&page=' + (postData.currentPage + 1);
+    });
+  };
+
+  $scope.getCategoryPosts = function() {
+    $scope.datas = Post.category($scope.params, function (postData) {
+      $scope.meta.setTitle($routeParams.category);
+      $scope.firstPost = postData.posts[0];
+      $scope.posts = postData.posts;
+      $scope.prevLink = '/#!/category/' + $routeParams.category + '&page=' + (postData.currentPage - 1);
+      $scope.nextLink = '/#!/category/' + $routeParams.category + '&page=' + (postData.currentPage + 1);
+    });
+  };
+
+
+
+
+  $scope.loadPosts = function(direction, query) {
+    switch (direction) {
+      case 'previous':
+        $scope.params.page--;
+        break;
+      case 'next':
+        $scope.params.page++;
+        break;
+      default:
+        $scope.params.page = 1;
+    }
+
+    if (typeof query !== 'undefined') {
+      jQuery.extend($scope.params, query);
+    }
+
+    $scope.whichPosts();
+  };
+
+  $scope.whichPosts = function() {
+    if ($scope.params.query) {
+      $scope.getSearchPosts();
+    }
+    else {
+      if ($scope.params.tag) {
+        $scope.getTagPosts();
+      }
+      else if ($scope.params.category) {
+        $scope.getCategoryPosts();
+      }
+      else {
+        $scope.getPosts();
+      }
+    }
+  };
+
+
+  $scope.whichPosts();
+
+  $scope.$on('post:refresh', function () {
+    $scope.getPosts();
+  });
 
 }]);
