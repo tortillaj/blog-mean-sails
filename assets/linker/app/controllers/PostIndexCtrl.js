@@ -20,46 +20,37 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
 
   $scope.getPosts = function() {
     $scope.datas = Post.index($scope.params, function (postData) {
-      $scope.meta.setTitle('Articles');
-      $scope.firstPost = postData.firstPost[0];
-      $scope.posts = postData.posts;
-      $scope.prevLink = '/#!/page/' + (postData.currentPage - 1);
-      $scope.nextLink = '/#!/page/' + (postData.currentPage + 1);
+      $scope.postProcess(postData, 'Articles');
     });
   };
 
   $scope.getSearchPosts = function() {
     $scope.datas = Post.search($scope.params, function (postData) {
-      $scope.meta.setTitle('Search for ' + $routeParams.query);
-      $scope.firstPost = postData.firstPost[0];
-      $scope.posts = postData.posts;
-      $scope.prevLink = '/#!/search?q=' + $routeParams.query + '&page=' + (postData.currentPage - 1);
-      $scope.nextLink = '/#!/search?q=' + $routeParams.query + '&page=' + (postData.currentPage + 1);
+      $scope.postProcess(postData, 'Search for ' + $scope.params.query);
     });
   };
 
   $scope.getTagPosts = function() {
     $scope.datas = Post.tag($scope.params, function (postData) {
-      $scope.meta.setTitle($routeParams.tag);
-      $scope.firstPost = postData.posts[0];
-      $scope.posts = postData.posts;
-      $scope.prevLink = '/#!/tag/' + $routeParams.tag + '&page=' + (postData.currentPage - 1);
-      $scope.nextLink = '/#!/tag/' + $routeParams.tag + '&page=' + (postData.currentPage + 1);
+      $scope.postProcess(postData, 'Tag: ' + $scope.params.tag);
     });
   };
 
   $scope.getCategoryPosts = function() {
     $scope.datas = Post.category($scope.params, function (postData) {
-      $scope.meta.setTitle($routeParams.category);
-      $scope.firstPost = postData.posts[0];
-      $scope.posts = postData.posts;
-      $scope.prevLink = '/#!/category/' + $routeParams.category + '&page=' + (postData.currentPage - 1);
-      $scope.nextLink = '/#!/category/' + $routeParams.category + '&page=' + (postData.currentPage + 1);
+      $scope.postProcess(postData, 'Category: ' + $scope.params.category);
     });
   };
 
 
+  $scope.postProcess = function(postData, pageTitle) {
+    $scope.posts = postData.posts;
+    $scope.firstPost = postData.posts[0];
 
+    $scope.setMetaTitle(pageTitle);
+
+    $scope.banner = postData.posts[0].teaserImage;
+  };
 
   $scope.whichPosts = function() {
     if ($scope.params.query) {
@@ -101,7 +92,7 @@ blog.controller('PostIndexCtrl', ['$scope', '$routeParams', 'growl', 'Post', fun
   $scope.whichPosts();
 
   $scope.$on('post:refresh', function () {
-    $scope.getPosts();
+    $scope.whichPosts();
   });
 
 }]);

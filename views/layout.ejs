@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html ng-app="Blog">
+<html ng-app="Blog" ng-controller="AppCtrl">
   <head>
-    <title ng-bind="meta.title">Blog</title>
+    <title ng-bind="metaTitle">Blog</title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -111,6 +111,7 @@
     <script src="/linker/bower_components/truncate/jquery.truncate.js"></script>
     <script src="/linker/bower_components/prism/prism.js"></script>
     <script src="/linker/app/app.js"></script>
+    <script src="/linker/app/controllers/AppCtrl.js"></script>
     <script src="/linker/app/controllers/NavCtrl.js"></script>
     <script src="/linker/app/controllers/PostEditCtrl.js"></script>
     <script src="/linker/app/controllers/PostIndexCtrl.js"></script>

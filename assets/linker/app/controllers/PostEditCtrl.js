@@ -10,7 +10,7 @@ blog.controller('PostEditCtrl', ['$scope', '$location', '$routeParams', 'growl',
     $scope.buttonLabel = 'Publish';
   }
 
-  $scope.meta.setTitle($scope.title);
+  $scope.setMetaTitle($scope.title);
 
   $scope.submit = function () {
 

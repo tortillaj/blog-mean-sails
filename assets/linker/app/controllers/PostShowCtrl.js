@@ -1,7 +1,8 @@
 blog.controller('PostShowCtrl', ['$scope', '$routeParams', '$location', 'growl', 'Post', function ($scope, $routeParams, $location, growl, Post) {
 
   $scope.post = Post.show({id: $routeParams.id}, function(article) {
-    $scope.meta.setTitle(article.title);
+    $scope.setMetaTitle(article.title);
+    $scope.setBanner(article.teaserImage);
   });
 
   $scope.destroyPost = function () {
