@@ -33,7 +33,7 @@
 
 </header>
 
-<img ng-src="{{ bannerImage }}" alt="{{ metaTitle }}">
+<img ng-src="{{ bannerImage }}" alt="{{ metaTitle }}" bannerload ng-hide="!!hideBannerImage">
 
 <main class="row" ng-view></main>
 

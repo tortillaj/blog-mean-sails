@@ -6,6 +6,7 @@ blog.controller('AppCtrl', ['$scope', 'Globals', function ($scope, Globals) {
     $scope.metaTitle = title + ' | ' + Globals.titlePrefix;
   };
 
+  $scope.hideBannerImage = true;
   $scope.bannerImage = Globals.banner;
 
   $scope.setBanner = function(img) {
@@ -13,7 +14,14 @@ blog.controller('AppCtrl', ['$scope', 'Globals', function ($scope, Globals) {
   };
 
   $scope.$on('$routeChangeStart', function(event, current, previous) {
+    $scope.hideBannerImage = true;
     $scope.bannerImage = Globals.banner;
+  });
+
+  $scope.$on('image:banner:loaded', function(event) {
+    console.log('controller listener');
+    $scope.hideBannerImage = false;
+    $scope.$apply();
   });
 
 }]);
